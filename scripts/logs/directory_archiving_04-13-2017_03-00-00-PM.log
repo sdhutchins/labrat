@@ -1,0 +1,39 @@
+INFO:root:#------------------------------------------------------------------
+INFO:root:The script name is folder_cleanup.py
+INFO:root:The date and time is currently Thu Apr 13 04:02:11 PM 2017
+INFO:root:#------------------------------------------------------------------
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, cow.rna.fna.gz, was moved to the gz_downloads directory.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, hmmer-3.1b2-linux-intel-x86_64.tar.gz, was moved to the gz_downloads directory.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, hmmer-3.1b2-linux-intel-x86_64.tar.gz, was moved to the gz_downloads directory.
+INFO:root:ics_downloads does not end in an extension.
+INFO:root:ini_downloads does not end in an extension.
+INFO:root:ipef_downloads does not end in an extension.
+INFO:root:jpg_downloads does not end in an extension.
+INFO:root:mp3_downloads does not end in an extension.
+INFO:root:msi_downloads does not end in an extension.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, muscle3.8.31_i86linux64.tar.gz, was moved to the gz_downloads directory.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, muscle3.8.31_i86linux64.tar.gz, was moved to the gz_downloads directory.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, muscle3.8.31_i86linux64.tar.gz, was moved to the gz_downloads directory.
+INFO:root:pdf_downloads does not end in an extension.
+INFO:root:png_downloads does not end in an extension.
+INFO:root:ppt_downloads does not end in an extension.
+INFO:root:py_downloads does not end in an extension.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, qscore_src.tar.gz, was moved to the gz_downloads directory.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, qscore_src.tar.gz, was moved to the gz_downloads directory.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, qscore_src.tar.gz, was moved to the gz_downloads directory.
+INFO:root:The gz_downloads directory exists.
+INFO:root:The file, qscore_src.tar.gz, was moved to the gz_downloads directory.
+INFO:root:txt_downloads does not end in an extension.
+INFO:root:xml_downloads does not end in an extension.
+INFO:root:zip_downloads does not end in an extension.
+INFO:root:The zip file (<zipfile.ZipFile [closed]>) has been created and saved.
+INFO:root:This script is complete.
