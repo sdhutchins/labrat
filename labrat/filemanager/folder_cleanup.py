@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-Date created: Thu Mar  9 17:11:18 2017
-Author: S. Hutchins
+"""Organize a files into folders by file extensions."""
 
-Script description: Cleanup downloads folder.
-
-* Incorporate logging into this script and schedule it.
-
-"""
-# Modules Used
 import os
 import pathlib
 import logging as log
@@ -16,7 +8,6 @@ from datetime import datetime as d
 from shutil import move, rmtree
 import zipfile
 
-#------------------------------------------------------------------------------
 # Set up the logger
 format1 = '%a %b %d %I:%M:%S %p %Y'  # Used to add as a date
 format2 = '%m-%d-%Y_%I-%M-%S-%p'  # Used to append to archives
