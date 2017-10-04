@@ -22,7 +22,7 @@ def readme():
 setup(
     name=name,
     author='Shaurita Hutchins',
-    description="",
+    description="A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs.",
     version='0.1',
     long_description=readme(),
     url='https://github.com/sdhutchins/labrat',
@@ -34,10 +34,14 @@ setup(
         'Operating System :: Unix',
         'Natural Language :: English',
         'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.0',
+        'Programming Language :: Python :: 3.1',
+        'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5'
-    ],
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6'
+        ],
     # Packages will be automatically found if not in this list.
     packages=find_packages(),
     include_package_data=True,
