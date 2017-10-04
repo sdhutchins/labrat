@@ -29,7 +29,7 @@ class Backup(object):
         log.info("The date and time is currently %s" %
                  str(d.now().strftime(self._f1)))
 
-        with contextlib.suppress(OSError, SameFileError):
-            log.error(OSError, SameFileError)
+        with contextlib.suppress(OSError):
+            log.error(OSError)
             copytree(self.sourcedir, self.backupdir)
             log.info('%s has been backed up.' % self.sourcedir)
