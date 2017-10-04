@@ -1,9 +1,9 @@
 from labrat.filemanager import Backup
-from unittest import TestCase
+import unittest
 
-class TestBackup(TestCase):
-    def test_shutil(self):
-        self.assertEqual =
+class TestBackup(unittest.TestCase):
+    def test_backup(self):
+        print()
 
 
 if __name__ == '__main__':
