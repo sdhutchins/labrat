@@ -15,7 +15,8 @@ pip install labrat
 
 ## Examples
 
-#### Pending Features
+<br>
+## TODO
 - Add a lab inventory app/gui
 - Allow creation of users
 - Add project report template
