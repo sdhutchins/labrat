@@ -1,22 +1,22 @@
 """Back up folders/files."""
 
-from shutil import copytree, SameFileError
+from shutil import copytree
 from logzero import logger as log
 import logzero
 from datetime import datetime as d
 import os
 import contextlib
+from labrat import LOGFORMAT1, LOGFORMAT2
 
 
 class Backup(object):
     def __init__(self, sourcedir, backupdir):
         """Set up the logger."""
-        format1 = '%a %b %d %I:%M:%S %p %Y'  # Used to add as a date
-        format2 = '%m-%d-%Y_%I-%M-%S-%p'  # Used to append to archives
-        self._f1 = format1
-        self._f2 = format2
+        self._f1 = LOGFORMAT1
+        self._f2 = LOGFORMAT2
         self.sourcedir = sourcedir
         self.backupdir = backupdir
+        self.backup()
 
     def backup(self):
         """Backup files from source directory to destination."""
@@ -30,6 +30,7 @@ class Backup(object):
                  str(d.now().strftime(self._f1)))
 
         with contextlib.suppress(OSError):
+            # TODO Add SameFileError from shutil
             log.error(OSError)
             copytree(self.sourcedir, self.backupdir)
             log.info('%s has been backed up.' % self.sourcedir)
