@@ -5,7 +5,6 @@ A package of helpful guis and functions for genetics/psychiatry related labs.
 
 ## Basic Overview
 
-
 <br>
 
 ## Install
@@ -15,6 +14,7 @@ pip install labrat
 
 ## Examples
 
+<br>
 
 ## TODO
 - Add a lab inventory app/gui
