@@ -15,7 +15,7 @@ pip install labrat
 
 ## Examples
 
-<br>
+
 ## TODO
 - Add a lab inventory app/gui
 - Allow creation of users
