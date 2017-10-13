@@ -31,6 +31,7 @@ class Backup(object):
 
         with contextlib.suppress(OSError):
             # TODO Add SameFileError from shutil
+            # TODO Add threading
             log.error(OSError)
             copytree(self.sourcedir, self.backupdir)
             log.info('%s has been backed up.' % self.sourcedir)
