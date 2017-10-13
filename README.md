@@ -4,7 +4,9 @@
 A package of helpful guis and functions for genetics/psychiatry related labs. This package is in the very early stages of development.
 
 ## Features
-- Easily math functions to dilute solutions.
+- Easily use math functions to dilute solutions, calculate molarity, etc.
+- Backup your documents with an easy one-liner
+- Manage lab inventory
 
 <br>
 
