@@ -19,6 +19,13 @@ If you want to develop or contribute to this package, install with `pip install 
 
 ## Examples
 
+#### *Dilute a stock concentration*
+```python
+from labrat.math import dilute_stock
+
+# Get the final concentration
+dilute_stock(100, 2, **{'vF': 4})
+```
 <br>
 
 ## TODO
