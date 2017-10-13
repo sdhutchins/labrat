@@ -1,4 +1,3 @@
-## -*- coding: utf-8 -*-
 #"""Organize a files into folders by file extensions."""
 #
 #import os
@@ -45,7 +44,7 @@
 #            root_path = downloads
 #            folder = ft + '_downloads'
 #            # If the filetype folder exists, move files of that type to it
-#            if os.path.isdir(folder) == True:
+#            if os.path.isdir(folder) is True:
 #                log.info("The %s directory exists." % folder)
 #                os.system('move *.' + ft + ' ' + folder)
 #                log.info("The file, %s, was moved to the %s directory." % (file, folder))
@@ -57,7 +56,6 @@
 #                log.info("The %s directory exists." % folder)
 #                os.system('move *.' + ft + ' ' + folder)
 #                log.info("The file, %s, was moved to the %s directory." % (file, folder))
-#                continue
 #
 ## After moving files to each file type directory, create an
 ## archive with all directories in it
@@ -78,6 +76,3 @@
 #
 #log.info("The zip file, %s, has been created and saved." % dloadzip)
 #log.info("This script is complete.")
-#
-#
-#
