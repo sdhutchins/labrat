@@ -16,6 +16,14 @@ def dilute_stock(cI, vI, **values):
             return final_volume
         else:
             raise KeyError('%s is not a valid key.' % key)
+            
+def calculate_molarity(moles, volume, unit_of_volume):
+  """Calculate the molarity of a solution given moles and liters or milliliters."""
+    if (unit_of_volume == 'ml' or unit_of_volume == 'mL'):
+        volume = volume * 1000
+    elif (unit_of_volume != 'l' and unit_of_volume != 'L'):
+        raise UserWarning('This unit of measurement is not supported.')
+    return moles/volume 
 
 def refractive_index_prism(A, D, angle_measurement)
 	"""Calculate the refractive index of prism using angle of prism and minimum angle of deviation."""
