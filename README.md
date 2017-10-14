@@ -7,8 +7,7 @@ A package of helpful guis and functions for genetics/psychiatry related labs. Th
 - Easily use math functions to dilute solutions, calculate molarity, etc.
 - Backup your documents with an easy one-liner
 - Manage lab inventory
-
-<br>
+- Create and manage new projects
 
 ## Install
 1. Clone this repository.
@@ -29,6 +28,15 @@ from labrat.math import dilute_stock
 dilute_stock(100, 2, **{'vF': 4})
 ```
 <br>
+
+#### *Create a new computational biology project*
+```python
+from labrat.project import ProjectManager
+projectmanager = ProjectManager('Dr. Jane Doe')
+projectmanager.newproject(project_type='computational-biology',
+                          project_name='KARG Analysis',
+                          project_path=os.getcwd())
+```
 
 ## TODO
 - Add a lab inventory app/gui
