@@ -16,3 +16,18 @@ def dilute_stock(cI, vI, **values):
             return final_volume
         else:
             raise KeyError('%s is not a valid key.' % key)
+ 
+def mass_recorder(grams, item, Sigfigs):
+    "Record the mass of different items"
+    item_Dict = {}
+    if isinstance(grams, float) and isinstance(item, str) and isinstance(Sigfigs, int):
+        if item in item_Dict:
+            formatter = "{0:."+Str(Sigfigs)+"f}"
+            grams = formatter.format(grams)
+            item_Dict[item] = grams
+        else:
+            formatter = "{0:."+Str(Sigfigs)+"f}"
+            grams = formatter.format(grams)
+            item_Dict[item]+= grams
+    else:
+        raise UserWarning('Please print grams as a float value, item as a string, and sigfigs as an integer value")
