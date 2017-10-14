@@ -7,8 +7,7 @@ A package of helpful guis and functions for genetics/psychiatry related labs. Th
 - Easily use math functions to dilute solutions, calculate molarity, etc.
 - Backup your documents with an easy one-liner
 - Manage lab inventory
-
-<br>
+- Create and manage new projects
 
 ## Install
 1. Clone this repository.
