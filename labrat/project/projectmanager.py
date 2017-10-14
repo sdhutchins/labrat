@@ -25,6 +25,8 @@ class ProjectManager(object):
                 cookiecutter(template='computational-biology', no_input=True,
                              extra_context=project_dict,
                              output_dir=project_path)
+                print('Your project, %s, has been created at %s' % (project_name,
+                                                                    project_path))
 
         else:
             raise UserWarning('%s is not a valid project type.' % project_type)

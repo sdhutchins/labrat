@@ -30,6 +30,15 @@ dilute_stock(100, 2, **{'vF': 4})
 ```
 <br>
 
+#### *Create a new computational biology project*
+```python
+from labrat.project import ProjectManager
+projectmanager = ProjectManager('Dr. Jane Doe')
+projectmanager.newproject(project_type='computational-biology',
+                          project_name='KARG Analysis',
+                          project_path=os.getcwd())
+```
+
 ## TODO
 - Add a lab inventory app/gui
 - Add project report template
