@@ -24,6 +24,6 @@ def dilute_stock(cI, vI, **values):
 def transmittance_to_absorbance(T):
     if isinstance(T, numbers.Number):
         T = T / 100
-        print(math.log(T ** -1))
+        return math.log(T ** -1)
     else:
         raise UserWarning("{} must be a number (percentage).")
