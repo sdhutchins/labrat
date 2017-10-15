@@ -1,8 +1,6 @@
 
 import re
 
-from analytics.DNAanalysis import complementary
-
 fasta_file = input('Type your fasta file name: ')
 
 CODONS = {
@@ -24,13 +22,13 @@ CODONS = {
     'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'
     }
 
-def dna2AA(fastaFile,codons):
+def dna2aminoacid(fasta_file, codons):
     AAsequence = ''
-    with open(fastaFile) as fileObj:
+    with open(fasta_file) as fileObj:
         for line in fileObj:
             line.strip()
         cont = fileObj.read()
-        sequenceSearch=re.compile(r'')                                                #need to complete
+        sequenceSearch = re.compile(r'')                                                #need to complete
         content = sequenceSearch.search(cont)
         print(content.group())
         for i in range(0,len(content.group()),3):
