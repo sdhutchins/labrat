@@ -26,4 +26,3 @@ if __name__ == '__main__':
     if argl[1] == 'dilute_stock':
         res = dilute_stock(argl[2], argl[3], **argd)
     print(res)
-

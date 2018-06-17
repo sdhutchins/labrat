@@ -2,6 +2,7 @@
 import math
 import numbers
 
+
 def dilute_stock(cI, vI, **values):
     """Dilute a stock concentration."""
     if not values:
@@ -17,7 +18,8 @@ def dilute_stock(cI, vI, **values):
             return final_volume
         else:
             raise KeyError('%s is not a valid key.' % key)
- 
+
+
 def mass_recorder(grams, item, sigfigs):
     """Record the mass of different items."""
     item_dict = {}
@@ -29,9 +31,10 @@ def mass_recorder(grams, item, sigfigs):
         else:
             formatter = "{0:." + str(sigfigs) + "f}"
             grams = formatter.format(grams)
-            item_dict[item]+= grams
+            item_dict[item] += grams
     else:
         raise ValueError('Please input grams as a float value, item as a string, and sigfigs as an integer value")
+
 
 def transmittance_to_absorbance(transmittance):
     if isinstance(transmittance, numbers.Number):
@@ -39,6 +42,7 @@ def transmittance_to_absorbance(transmittance):
         return math.log(t ** -1)
     else:
         raise ValueError("{} must be a number (percentage).")
+
 
 def calculate_molarity(moles, volume, units):
     """Calculate the molarity of a solution given moles and liters or mL."""
@@ -48,21 +52,21 @@ def calculate_molarity(moles, volume, units):
         raise ValueError('This unit of measurement is not supported.')
     return moles/volume
 
+
 def refractive_index_prism(prism, deviation, angle_measurement):
-	"""Calculate the refractive index of prism.
+    """Calculate the refractive index of prism.
 
     This function uses the angle of prism and minimum angle of deviation.
     """
-	if (angle_measurement == 'rad'):
-		refractive_index = (math.sin((prism + deviation)/2)) / math.sin(prism/2)
-		return refractive_index
+    if (angle_measurement == 'rad'):
+        refractive_index = (math.sin((prism + deviation) / 2)) / math.sin(prism / 2)
+        return refractive_index
 
-	elif (angle_measurement == 'deg'):
-		p = math.radians(prism)
-		d = math.radians(deviation)
+    elif (angle_measurement == 'deg'):
+        p = math.radians(prism)
+        d = math.radians(deviation)
+        refractive_index = (math.sin((p + d)/2)) / math.sin(p/2)
+        return refractive_index
 
-		refractive_index = (math.sin((p + d)/2)) / math.sin(p/2)
-		return refractive_index
-
-	else:
-		raise ValueError('The angle measurement has to be in deg or rad format.')
+    else:
+        raise ValueError('The angle measurement has to be in deg or rad format.')
