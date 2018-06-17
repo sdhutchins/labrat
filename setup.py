@@ -22,13 +22,15 @@ def readme():
 setup(
     name=name,
     author='Shaurita Hutchins',
+    author_email='sdhutchins@outlook.com',
     description="A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs.",
     version='0.1',
     long_description=readme(),
     url='https://github.com/sdhutchins/labrat',
-    license='',
+    license='MIT',
     keywords='science lab pyschiatry math filemanagement',
     classifiers=[
+        'Development Status :: 3 - Alpha',
         'Programming Language :: Python :: 3',
         'Operating System :: POSIX :: Linux',
         'Operating System :: Unix',
@@ -44,6 +46,10 @@ setup(
     entry_points={
         'console_scripts': ['']
     },
+    install_requires=[
+          'cookiecutter>=1.5.1',
+          'logzero>=1.3.1'
+      ],
     zip_safe=False,
     test_suite='nose.collector',
     tests_require=['nose']
