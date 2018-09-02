@@ -1,9 +1,10 @@
 # labrat
-[![Build Status](https://travis-ci.com/sdhutchins/lab-management.svg?token=xfnbNTQhjNbir5xACn8R&branch=master)](https://travis-ci.com/sdhutchins/lab-management)
+[![Build Status](https://travis-ci.org/sdhutchins/labrat.svg?branch=master)](https://travis-ci.org/sdhutchins/labrat)
 
 A package of helpful guis and functions for genetics/psychiatry related labs. This package is in the very early stages of development.
 
 ## Features
+
 - Easily use math functions to dilute solutions, calculate molarity, etc.
 - Backup your documents with an easy one-liner
 - Manage lab inventory
@@ -21,6 +22,7 @@ If you want to develop or contribute to this package, install with `pip install 
 ## Examples
 
 #### *Dilute a stock concentration*
+
 ```python
 from labrat.math import dilute_stock
 
@@ -39,6 +41,7 @@ projectmanager.newproject(project_type='computational-biology',
 ```
 
 ## TODO
+
 - Add a lab inventory app/gui
 - Add project report template
 - Add GraphPad Prism 7 scripts
