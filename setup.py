@@ -39,17 +39,21 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
-        ],
+    ],
     # Packages will be automatically found if not in this list.
     packages=find_packages(),
     include_package_data=True,
     entry_points={
-        'console_scripts': ['']
+        'console_scripts': [
+            'labrat=labrat.cli:main'
+        ]
     },
     install_requires=[
-          'cookiecutter>=1.5.1',
-          'logzero>=1.3.1'
-      ],
+        'cookiecutter>=1.5.1',
+        'logzero>=1.3.1',
+        'exmemo>=0.1.0',
+        'click>=6.7'
+    ],
     zip_safe=False,
     test_suite='nose.collector',
     tests_require=['nose']
