@@ -21,7 +21,7 @@ If you want to develop or contribute to this package, install with `pip install 
 
 ## Examples
 
-#### *Dilute a stock concentration*
+### Dilute a stock concentration
 
 ```python
 from labrat.math import dilute_stock
@@ -31,7 +31,8 @@ dilute_stock(100, 2, **{'vF': 4})
 ```
 <br>
 
-#### *Create a new computational biology project*
+### Create a new computational biology project
+
 ```python
 from labrat.project import ProjectManager
 projectmanager = ProjectManager('Dr. Jane Doe')
@@ -40,9 +41,24 @@ projectmanager.newproject(project_type='computational-biology',
                           project_path=os.getcwd())
 ```
 
-## TODO
+## ToDo
 
-- Add a lab inventory app/gui
-- Add project report template
-- Add GraphPad Prism 7 scripts
-- Command line functionality
+- [ ] Add a lab inventory app/gui
+- [ ] Add project report template
+- [ ] Add GraphPad Prism 7 scripts
+- [ ] Command line functionality
+
+## Author
+
+Shaurita Hutchins · [@sdhutchins](https://github.com/sdhutchins)
+    · [:email:](mailto:sdhutchins@outlook.com)
+
+## Contributing
+
+If you would like to contribute to this package, install the package in
+development mode, and check out our [contributing
+guidelines](https://github.com/sdhutchins/labrat/blob/master/CONTRIBUTING.rst).
+
+## License
+
+[MIT](https://github.com/sdhutchins/labrat/blob/master/LICENSE)
