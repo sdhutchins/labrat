@@ -1,11 +1,13 @@
 """Back up folders/files."""
 
 from shutil import copytree
-from logzero import logger as log
-import logzero
 from datetime import datetime as d
 import os
 import contextlib
+
+from logzero import logger as log
+import logzero
+
 from labrat import LOGFORMAT1, LOGFORMAT2
 
 
@@ -23,7 +25,7 @@ class Backup(object):
 
         logzero.logfile("directory_backup_%s.log" %
                         str(d.now().strftime(self._f2)))
-        sep = 50*'-'
+        sep = 50 * '-'
         log.info("#%s" % sep)
         log.info("The script name is %s" % os.path.basename(__file__))
         log.info("The date and time is currently %s" %

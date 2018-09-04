@@ -21,6 +21,6 @@ def dna2aminoacid(fasta_file, codons=CODONS):
         content = sequenceSearch.search(cont)
         print(content.group())
         for i in range(0, len(content.group()), 3):
-            seq = cont[i:i+3]
+            seq = cont[i:i + 3]
             AAsequence += codons[seq]
     return AAsequence

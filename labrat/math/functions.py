@@ -1,4 +1,4 @@
-"""Reusable math functions for the molecular scientists."""
+"""Reusable math functions for scientists."""
 import math
 import numbers
 
@@ -50,7 +50,7 @@ def calculate_molarity(moles, volume, units):
         volume = volume * 1000
     elif (units != 'l' and units != 'L'):
         raise ValueError('This unit of measurement is not supported.')
-    return moles/volume
+    return moles / volume
 
 
 def refractive_index_prism(prism, deviation, angle_measurement):
@@ -65,7 +65,7 @@ def refractive_index_prism(prism, deviation, angle_measurement):
     elif (angle_measurement == 'deg'):
         p = math.radians(prism)
         d = math.radians(deviation)
-        refractive_index = (math.sin((p + d)/2)) / math.sin(p/2)
+        refractive_index = (math.sin((p + d) / 2)) / math.sin(p / 2)
         return refractive_index
 
     else:
