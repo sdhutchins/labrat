@@ -40,6 +40,11 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
     ],
+    project_urls={
+            'Documentation': '',
+            'Releases': 'https://github.com/sdhutchins/labrat/releases',
+            'Issues': 'https://github.com/sdhutchins/labrat/issues',
+            },
     # Packages will be automatically found if not in this list.
     packages=find_packages(),
     include_package_data=True,
