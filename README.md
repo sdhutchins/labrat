@@ -1,16 +1,17 @@
 # labrat
 [![Build Status](https://travis-ci.org/sdhutchins/labrat.svg?branch=master)](https://travis-ci.org/sdhutchins/labrat)
 
-A package of helpful guis and functions for genetics/psychiatry related labs. This package is in the very early stages of development.
+A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
 
 ## Features
 
 - Easily use math functions to dilute solutions, calculate molarity, etc.
-- Backup your documents with an easy one-liner
-- Manage lab inventory
-- Create and manage new projects
+- Backup your documents using the command line
+- Manage lab inventory using a GUI
+- Create and manage new projects using the command line
 
 ## Install
+
 1. Clone this repository.
 2. Change to the downloaded repository's base directory.
 3. `pip install .`
@@ -43,10 +44,10 @@ projectmanager.newproject(project_type='computational-biology',
 
 ## ToDo
 
-- [ ] Add a lab inventory app/gui
+- [ ] Add a lab inventory app
 - [ ] Add project report template
-- [ ] Add GraphPad Prism 7 scripts
 - [ ] Command line functionality
+- [ ] Integrate [exmemo](https://github.com/kalekundert/exmemo)
 
 ## Author
 
