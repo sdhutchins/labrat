@@ -37,6 +37,7 @@ def mass_recorder(grams, item, sigfigs):
 
 
 def transmittance_to_absorbance(transmittance):
+    """Convert transmittance to absorbance."""
     if isinstance(transmittance, numbers.Number):
         t = transmittance / 100
         return math.log(t ** -1)
