@@ -58,7 +58,7 @@ Shaurita Hutchins · [@sdhutchins](https://github.com/sdhutchins)
 
 If you would like to contribute to this package, install the package in
 development mode, and check out our [contributing
-guidelines](https://github.com/sdhutchins/labrat/blob/master/CONTRIBUTING.rst).
+guidelines](https://github.com/sdhutchins/labrat/blob/master/CONTRIBUTING.md).
 
 ## License
 

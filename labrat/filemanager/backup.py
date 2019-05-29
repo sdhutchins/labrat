@@ -13,7 +13,7 @@ from labrat import LOGFORMAT1, LOGFORMAT2
 
 class Backup(object):
     def __init__(self, sourcedir, backupdir):
-        """Set up the logger."""
+        """Initialize logger and run backup."""
         self._f1 = LOGFORMAT1
         self._f2 = LOGFORMAT2
         self.sourcedir = sourcedir
@@ -22,7 +22,6 @@ class Backup(object):
 
     def backup(self):
         """Backup files from source directory to destination."""
-
         logzero.logfile("directory_backup_%s.log" %
                         str(d.now().strftime(self._f2)))
         sep = 50 * '-'
