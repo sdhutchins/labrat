@@ -4,7 +4,19 @@ import numbers
 
 
 def dilute_stock(cI, vI, **values):
-    """Dilute a stock concentration."""
+    """Dilute a stock concentration.
+
+    Args:
+        cI ([type]): [description]
+        vI ([type]): [description]
+
+    Raises:
+        UserWarning: [description]
+        KeyError: [description]
+
+    Returns:
+        [type]: [description]
+    """
     if not values:
         raise UserWarning('You did not enter any values.')
     for key, value in values.items():
@@ -21,7 +33,16 @@ def dilute_stock(cI, vI, **values):
 
 
 def mass_recorder(grams, item, sigfigs):
-    """Record the mass of different items."""
+    """Record the mass of different items.
+
+    Args:
+        grams ([type]): [description]
+        item ([type]): [description]
+        sigfigs ([type]): [description]
+
+    Raises:
+        ValueError: [description]
+    """
     item_dict = {}
     if isinstance(grams, float) and isinstance(item, str) and isinstance(sigfigs, int):
         if item in item_dict:
@@ -37,7 +58,17 @@ def mass_recorder(grams, item, sigfigs):
 
 
 def transmittance_to_absorbance(transmittance):
-    """Convert transmittance to absorbance."""
+    """Convert transmittance to absorbance.
+
+    Args:
+        transmittance ([type]): [description]
+
+    Raises:
+        ValueError: [description]
+
+    Returns:
+        [type]: [description]
+    """
     if isinstance(transmittance, numbers.Number):
         t = transmittance / 100
         return math.log(t ** -1)
@@ -46,7 +77,19 @@ def transmittance_to_absorbance(transmittance):
 
 
 def calculate_molarity(moles, volume, units):
-    """Calculate the molarity of a solution given moles and liters or mL."""
+    """Calculate the molarity of a solution given moles and liters or mL.
+
+    Args:
+        moles ([type]): [description]
+        volume ([type]): [description]
+        units ([type]): [description]
+
+    Raises:
+        ValueError: [description]
+
+    Returns:
+        [type]: [description]
+    """
     if (units == 'ml' or units == 'mL'):
         volume = volume * 1000
     elif (units != 'l' and units != 'L'):
@@ -58,6 +101,17 @@ def refractive_index_prism(prism, deviation, angle_measurement):
     """Calculate the refractive index of prism.
 
     This function uses the angle of prism and minimum angle of deviation.
+
+    Args:
+        prism ([type]): [description]
+        deviation ([type]): [description]
+        angle_measurement ([type]): [description]
+
+    Raises:
+        ValueError: [description]
+
+    Returns:
+        [type]: [description]
     """
     if (angle_measurement == 'rad'):
         refractive_index = (math.sin((prism + deviation) / 2)) / math.sin(prism / 2)
