@@ -6,9 +6,9 @@ A basic science lab framework aimed at reproducibility and lab management. This 
 ## Features
 
 - Easily use math functions to dilute solutions, calculate molarity, etc.
-- Backup your documents using the command line
+- Backup your documents using the command-line
 - Manage lab inventory using a GUI
-- Create and manage new projects using the command line
+- Create and manage new projects using the command-line
 
 ## Install
 
@@ -37,7 +37,7 @@ dilute_stock(100, 2, **{'vF': 4})
 ```python
 from labrat.project import ProjectManager
 projectmanager = ProjectManager('Dr. Jane Doe')
-projectmanager.newproject(project_type='computational-biology',
+projectmanager.new_project(project_type='computational-biology',
                           project_name='KARG Analysis',
                           project_path=os.getcwd())
 ```
@@ -46,7 +46,7 @@ projectmanager.newproject(project_type='computational-biology',
 
 - [ ] Add a lab inventory app
 - [ ] Add project report template
-- [ ] Command line functionality
+- [ ] Command-line functionality
 - [ ] Integrate [exmemo](https://github.com/kalekundert/exmemo)
 
 ## Author
