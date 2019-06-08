@@ -6,12 +6,27 @@ from cookiecutter.main import cookiecutter
 
 class ProjectManager(object):
     def __init__(self, username):
+        """Initialize the project manager by adding a username.
+
+        Args:
+            username (str): The user's name.
+        """
         self.username = username
         self.computational_biology = 'computational-biology'
         self.project_types = [self.computational_biology]
 
-    def newproject(self, project_type, project_name, project_path, description=''):
-        """Create a new project from an existing template."""
+    def new_project(self, project_type, project_name, project_path, description):
+        """Create a new project from an existing template.
+
+        Args:
+            project_type (str): The type of project.
+            project_name (str): The name of your project.
+            project_path (str): The destination path of the project.
+            description (str): A description of the project.
+
+        Raises:
+            UserWarning: Warns the user about invalid project types.
+        """
         # TODO Ensure project_path exists or create the path
         # TODO Ensure project_name has no spaces
         # TODO Create codes for project_type and config or json file for each
@@ -31,6 +46,6 @@ class ProjectManager(object):
         else:
             raise UserWarning('%s is not a valid project type.' % project_type)
 
-    def customproject(self):
+    def custom_project(self):
         """Create a custom project."""
         raise NotImplementedError
