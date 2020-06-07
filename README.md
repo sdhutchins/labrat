@@ -1,4 +1,5 @@
 # labrat
+
 [![Build Status](https://travis-ci.com/sdhutchins/labrat.svg?branch=master)](https://travis-ci.com/sdhutchins/labrat)
 
 A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
@@ -30,6 +31,7 @@ from labrat.math import dilute_stock
 # Get the final concentration
 dilute_stock(100, 2, **{'vF': 4})
 ```
+
 <br>
 
 ### Create a new computational biology project
