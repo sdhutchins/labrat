@@ -1,4 +1,5 @@
 # labrat
+
 [![Build Status](https://travis-ci.com/sdhutchins/labrat.svg?branch=master)](https://travis-ci.com/sdhutchins/labrat)
 
 A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
@@ -30,16 +31,25 @@ from labrat.math import dilute_stock
 # Get the final concentration
 dilute_stock(100, 2, **{'vF': 4})
 ```
+
 <br>
 
 ### Create a new computational biology project
 
 ```python
+import os
 from labrat.project import ProjectManager
-projectmanager = ProjectManager('Dr. Jane Doe')
-projectmanager.new_project(project_type='computational-biology',
-                          project_name='KARG Analysis',
-                          project_path=os.getcwd())
+
+# Initialize the ProjectManager with a username
+project_manager = ProjectManager('Dr. Jane Doe')
+
+# Create a new project
+project_manager.new_project(
+    project_type='computational-biology',  # Valid project type
+    project_name='KARG Analysis',  # Includes a space to test sanitization
+    project_path=os.getcwd(),  # Current working directory
+    description="Analyze the KARG data."
+)
 ```
 
 ## ToDo
