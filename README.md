@@ -45,9 +45,9 @@ project_manager = ProjectManager('Dr. Jane Doe')
 
 # Create a new project
 project_manager.new_project(
-    project_type='computational-biology',  # Valid project type
-    project_name='KARG Analysis',  # Includes a space to test sanitization
-    project_path=os.getcwd(),  # Current working directory
+    project_type='computational-biology',
+    project_name='KARG Analysis',
+    project_path=os.getcwd(),
     description="Analyze the KARG data."
 )
 ```

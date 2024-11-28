@@ -77,6 +77,7 @@ class ProjectManager:
         }
 
         try:
+            logger.info(f"Using Cookiecutter template: {project_template}")
             logger.info(f"Creating project '{sanitized_name}' at {validated_path}...")
             cookiecutter(
                 template=project_template,
@@ -107,6 +108,7 @@ class ProjectManager:
         validated_path = self.validate_path(project_path)
 
         try:
+            logger.info(f"Using custom Cookiecutter template: {template_path}")
             logger.info(f"Creating custom project '{project_name}' at {validated_path}...")
             cookiecutter(
                 template=template_path,
