@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from cookiecutter.main import cookiecutter
 from logzero import logger
