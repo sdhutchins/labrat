@@ -19,8 +19,6 @@ A basic science lab framework aimed at reproducibility and lab management. This 
 
 If you want to develop or contribute to this package, install with `pip install -e .`
 
-*This package is compatible with python 3.4 and up.*
-
 ## Examples
 
 ### Dilute a stock concentration
@@ -32,11 +30,13 @@ from labrat.math import dilute_stock
 dilute_stock(100, 2, **{'vF': 4})
 ```
 
-<br>
+### Project Management
 
-### Create a new computational biology project
+Create a new project using the below code. This will create a `.labrat` file that contains the project information for
+any project created.
 
 ```python
+# Create a new project
 import os
 from labrat.project import ProjectManager
 
@@ -50,6 +50,29 @@ project_manager.new_project(
     project_path=os.getcwd(),
     description="Analyze the KARG data."
 )
+```
+
+Archive a project:
+
+```python
+from projectmanager import ProjectManager
+
+project_manager = ProjectManager()
+project_path = "/Users/shutchens/Documents/Git-Repos/labrat/karg_analysis"
+archive_base_dir = "/Users/shutchens/Archive"
+
+archive_dir = project_manager.archive_project(project_path=project_path, archive_base_dir=archive_base_dir)
+```
+
+Delete a project:
+
+```python
+# Path to the project to delete
+project_path = "/Users/shutchens/Documents/Git-Repos/labrat/karg_analysis"
+archive_base_dir = "/Users/shutchens/Archive"
+
+# Delete the project
+archived_path = project_manager.delete_project(project_path, archive_base_dir)
 ```
 
 ## ToDo
