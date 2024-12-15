@@ -62,7 +62,7 @@ project_manager.new_project(
 ## Author
 
 Shaurita Hutchins · [@sdhutchins](https://github.com/sdhutchins)
-    · [:email:](mailto:sdhutchins@outlook.com)
+    · [:email:](mailto:shaurita.d.hutchins@gmail.com)
 
 ## Contributing
 
