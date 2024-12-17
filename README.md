@@ -1,6 +1,6 @@
 # labrat
 
-[![Build Status](https://travis-ci.com/sdhutchins/labrat.svg?branch=master)](https://travis-ci.com/sdhutchins/labrat)
+[![Build Status](https://app.travis-ci.com/sdhutchins/labrat.svg?token=xfnbNTQhjNbir5xACn8R&branch=master)](https://app.travis-ci.com/sdhutchins/labrat)
 
 A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
 
