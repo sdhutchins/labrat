@@ -41,7 +41,6 @@ class ProjectManager:
             logger.error(f"Failed to initialize .labrat file: {e}")
             raise
 
-
     def _load_templates(self):
         """
         Load project templates from the .labrat file or initialize with defaults.
@@ -258,8 +257,6 @@ class ProjectManager:
         self._update_labrat_file(project_data)
 
         logger.info(f"Project '{actual_project_path.name}' created successfully at {actual_project_path}")
-
-
 
     def list_projects(self):
         """

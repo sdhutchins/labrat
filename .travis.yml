@@ -1,15 +1,21 @@
-sudo: false
 language: python
+dist: focal  # Use Ubuntu 20.04 for Python 3.10+ support
 cache: pip
+
 python:
   - "3.9"
   - "3.10"
   - "3.11"
+
 notifications:
   email: false
-# command to install dependencies
+
+# Install dependencies
 install:
-  - "pip install --upgrade pip setuptools"
-  - "pip install -r requirements.txt"
-# command to run nosetests
-script: pytest
+  - pip install --upgrade pip setuptools wheel
+  - pip install -r requirements.txt
+  - pip install pytest pytest-cov  # Ensure pytest and coverage are installed
+
+# Run tests with pytest and generate a coverage report
+script:
+  - pytest --cov=labrat tests/
