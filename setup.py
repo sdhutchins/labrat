@@ -24,7 +24,7 @@ setup(
     author='Shaurita Hutchins',
     author_email='sdhutchins@outlook.com',
     description="A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs.",
-    version='0.1',
+    version='0.2',
     long_description=readme(),
     url='https://github.com/sdhutchins/labrat',
     license='MIT',
@@ -36,9 +36,9 @@ setup(
         'Operating System :: Unix',
         'Natural Language :: English',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9'
     ],
     project_urls={
             'Documentation': '',
@@ -60,6 +60,5 @@ setup(
         'click>=6.7'
     ],
     zip_safe=False,
-    test_suite='nose.collector',
-    tests_require=['nose']
+    tests_require=['pytest']
 )
