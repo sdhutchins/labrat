@@ -1,7 +1,8 @@
 import unittest
 from pathlib import Path
-from labrat.filemanager.organize import FileOrganizer # type: ignore
+from labrat.filemanager import FileOrganizer # type: ignore
 import shutil
+import datetime
 
 class TestFileOrganizer(unittest.TestCase):
     def setUp(self):
@@ -49,7 +50,12 @@ class TestFileOrganizer(unittest.TestCase):
         Test file organization for documents.
         """
         self.organizer.organize_documents()
-        pdf_dir = self.documents_dir / "PDFs"
+        
+        # Determine the year for organization
+        year = datetime.datetime.now().year
+        pdf_dir = self.documents_dir / "PDFs" / str(year)
+        
+        # Check if the file was moved correctly
         self.assertTrue((pdf_dir / "test_doc.pdf").exists())
         self.assertFalse((self.documents_dir / "test_doc.pdf").exists())
 

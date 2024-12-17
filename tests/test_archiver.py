@@ -1,6 +1,6 @@
 import unittest
 from pathlib import Path
-from labrat.filemanager.archive import Archiver
+from labrat.filemanager import Archiver
 import shutil
 
 class TestArchiver(unittest.TestCase):

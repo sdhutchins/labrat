@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 import json
-from labrat.project.projectmanager import ProjectManager
+from labrat.project import ProjectManager
 import shutil
 
 class TestProjectManager(unittest.TestCase):
