@@ -24,7 +24,7 @@ setup(
     author='Shaurita Hutchins',
     author_email='sdhutchins@outlook.com',
     description="A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs.",
-    version='0.1',
+    version='0.2',
     long_description=readme(),
     url='https://github.com/sdhutchins/labrat',
     license='MIT',

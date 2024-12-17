@@ -77,7 +77,6 @@ class ProjectManager:
 
         return default_templates
 
-    
     def _save_templates(self):
         """
         Save the current project templates to the .labrat file.
@@ -269,10 +268,11 @@ class ProjectManager:
             try:
                 with self.labrat_file.open("r") as f:
                     data = json.load(f)
-                    logger.debug(f"Retrieved {len(data.get('projects', []))} projects from .labrat file.")
+                    logger.debug("Retrieved %d projects from .labrat file.",
+                                 len(data.get('projects', [])))
                     return data.get("projects", [])
             except Exception as e:
-                logger.error(f"Failed to read .labrat file: {e}")
+                logger.error("Failed to read .labrat file: %s", e)
         logger.warning("No projects found in .labrat file.")
         return []
 
@@ -288,7 +288,7 @@ class ProjectManager:
             if project["path"] == str(Path(project_path).resolve()):
                 project["last_modified"] = datetime.now().isoformat()
                 self._update_labrat_file(project)
-                logger.info(f"Updated project '{project['name']}' last modified timestamp.")
+                logger.info("Updated project '%s' last modified timestamp.", project['name'])
                 return
 
         logger.warning(f"No project found at path: {project_path}")
@@ -343,7 +343,7 @@ class ProjectManager:
 
         logger.info(f"Archive completed for project '{project_name}'.")
         return str(archive_dir)
-    
+
     def add_template(self, name, url):
         """
         Add a new project template.
