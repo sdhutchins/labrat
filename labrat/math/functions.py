@@ -20,12 +20,10 @@ def dilute_stock(cI, vI, **values):
     if not values:
         raise UserWarning('You did not enter any values.')
     for key, value in values.items():
-        if key == 'vF' or 'vf':
-            value = values['vF']
+        if key in ('vF', 'vf'):
             final_concentration = (cI * vI) / value
             return final_concentration
-        elif key == 'cF' or 'cf':
-            value = values['cF']
+        elif key in ('cF', 'cf'):
             final_volume = (cI * vI) / value
             return final_volume
         else:
@@ -54,7 +52,7 @@ def mass_recorder(grams, item, sigfigs):
             grams = formatter.format(grams)
             item_dict[item] += grams
     else:
-        raise ValueError('Please input grams as a float value, item as a string, and sigfigs as an integer value")
+        raise ValueError('Please input grams as a float value, item as a string, and sigfigs as an integer value')
 
 
 def transmittance_to_absorbance(transmittance):
@@ -70,6 +68,8 @@ def transmittance_to_absorbance(transmittance):
         [type]: [description]
     """
     if isinstance(transmittance, numbers.Number):
+        if transmittance == 0:
+            return float('inf')
         t = transmittance / 100
         return math.log(t ** -1)
     else:
