@@ -3,6 +3,7 @@ from pathlib import Path
 import datetime
 import logzero
 from logzero import logger
+from labrat.utils import get_labrat_dir
 
 
 class FileOrganizer:
@@ -54,8 +55,10 @@ class FileOrganizer:
         }
 
         # Configure logzero
-        log_file = Path.home() / "file_organizer.log"
-        logzero.logfile(log_file)
+        # Store logs in user's home directory under .labrat folder
+        labrat_dir = get_labrat_dir()
+        log_file = labrat_dir / "file_organizer.log"
+        logzero.logfile(str(log_file))
         logger.info("FileOrganizer initialized.")
 
     def move_file(self, src_file: Path, dest_dir: Path):
