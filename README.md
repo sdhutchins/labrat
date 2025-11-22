@@ -75,6 +75,28 @@ archive_base_dir = "/Users/shutchens/Archive"
 archived_path = project_manager.delete_project(project_path, archive_base_dir)
 ```
 
+## Tests
+
+Run all tests using unittest:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Or run tests with pytest (if installed):
+
+```bash
+pytest tests/
+```
+
+To run a specific test file:
+
+```bash
+python -m unittest tests.test_archiver
+python -m unittest tests.test_file_organizer
+python -m unittest tests.test_project_manager
+```
+
 ## ToDo
 
 - [ ] Add a lab inventory app
