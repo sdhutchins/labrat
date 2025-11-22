@@ -5,10 +5,19 @@ from datetime import datetime
 from logzero import logger
 from cookiecutter.main import cookiecutter
 from labrat.filemanager.archive import Archiver
+from labrat.utils import get_labrat_dir
 
 
 class ProjectManager:
-    labrat_file = Path.home() / ".labrat"
+    @property
+    def labrat_file(self):
+        """
+        Get the path to the .labrat config file.
+        
+        Returns:
+            Path: Path to config.json inside the .labrat directory.
+        """
+        return get_labrat_dir() / "config.json"
 
     def __init__(self, username=None):
         """
