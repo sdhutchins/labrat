@@ -1,0 +1,50 @@
+site_name: labrat
+site_author: Shaurita Hutchins
+copyright: Copyright &copy; 2025 Shaurita Hutchins
+site_url: !ENV READTHEDOCS_CANONICAL_URL
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - CLI Reference: cli.md
+  - API Reference: api.md
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+repo_url: https://github.com/sdhutchins/labrat
+repo_name: sdhutchins/labrat
+
+markdown_extensions:
+  - admonition
+  - smarty
+  - attr_list
+  - mkdocs-click
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [labrat]

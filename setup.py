@@ -60,6 +60,15 @@ setup(
         'click>=6.7',
         'jinja2-time>=0.2.0'
     ],
+    extras_require={
+        'docs': [
+            'mkdocs>=1.5.0',
+            'mkdocs-material>=9.0.0',
+            'mkdocs-click>=0.8.0',
+            'mkdocstrings[python]>=0.23.0',
+            'pymdown-extensions>=10.0.0'
+        ]
+    },
     zip_safe=False,
     tests_require=['pytest']
 )
