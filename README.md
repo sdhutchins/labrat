@@ -77,6 +77,18 @@ archived_path = project_manager.delete_project(project_path, archive_base_dir)
 
 ## Tests
 
+Before running tests, ensure all dependencies are installed:
+
+```bash
+pip install -r requirements.txt
+```
+
+Or if installing the package:
+
+```bash
+pip install .
+```
+
 Run all tests using unittest:
 
 ```bash

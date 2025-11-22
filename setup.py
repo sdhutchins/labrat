@@ -57,7 +57,8 @@ setup(
         'cookiecutter>=1.5.1',
         'logzero>=1.3.1',
         'exmemo>=0.1.0',
-        'click>=6.7'
+        'click>=6.7',
+        'jinja2-time>=0.2.0'
     ],
     zip_safe=False,
     tests_require=['pytest']
