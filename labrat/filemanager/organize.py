@@ -22,6 +22,8 @@ class FileOrganizer:
         self.videos_dir = Path.home() / "Videos"
         self.archive_dir = self.documents_dir / "Archive"
         self.specific_dir = self.documents_dir / "Organized_Files"
+        # Default science files directory for organizing scientific data files
+        self.science_dir = self.documents_dir / "Research_Data"
 
         # Subfolders for documents and archives
         self.document_subfolders = {
@@ -53,6 +55,25 @@ class FileOrganizer:
                 ".m4v", ".mpeg", ".3gp", ".webm"
             ]
         }
+        
+        # Scientific data file extensions for research data files
+        # Bioinformatics & Genomics
+        # Astronomy & Physics
+        self.science_extensions = [
+            # Bioinformatics & Genomics
+            "fastq", "fq",  # Sequencing data
+            "fasta", "fa",  # Sequence files
+            "sam", "bam", "cram",  # Alignment files
+            "vcf", "bcf",  # Variant call format
+            "bed", "gff", "gtf",  # Genomic annotations
+            "nex", "nexus", "phylip",  # Phylogenetic data
+            "pdb", "mmcif",  # Protein structures
+            # Astronomy & Physics
+            "fits", "fit",  # Astronomy images/data
+            "hdf5", "h5",  # Hierarchical data format
+            "nc", "nc4",  # NetCDF (climate/oceanography)
+            "cdf",  # Common Data Format (NASA)
+        ]
 
         # Configure logzero
         # Store logs in user's home directory under .labrat folder
@@ -158,6 +179,49 @@ class FileOrganizer:
             for file_path in source_dir.glob(f"*{keyword}*"):
                 self.move_file(file_path, self.specific_dir)
         logger.info("Finished moving specific files.")
+
+    def organize_science_files(self, science_dir=None):
+        """
+        Organize scientific data files into a dedicated research files folder.
+
+        Handles common scientific file formats including:
+        - Bioinformatics: fastq, fasta, sam, bam, vcf, bed, gff, gtf
+        - Astronomy: fits, hdf5, nc (NetCDF)
+        - General: csv, tsv, json, h5, parquet
+        - Computational: ipynb, py, r, R
+
+        Args:
+            science_dir (Path, optional): Custom directory for science files.
+                Defaults to Documents/Research_Data.
+        """
+        if science_dir is None:
+            science_dir = self.science_dir
+        else:
+            science_dir = Path(science_dir)
+
+        logger.info(f"Organizing scientific data files to {science_dir}...")
+        
+        # Search in Downloads and Documents
+        for source_dir in [self.downloads_dir, self.documents_dir]:
+            for ext in self.science_extensions:
+                # Handle case-insensitive extensions
+                # For extensions with dots (like .fq.gz), handle them specially
+                if "." in ext:
+                    # Multi-part extension like .fq.gz
+                    pattern = f"*.{ext}"
+                    for file_path in source_dir.glob(pattern):
+                        self.move_file(file_path, science_dir)
+                    # Also try uppercase
+                    pattern_upper = f"*.{ext.upper()}"
+                    for file_path in source_dir.glob(pattern_upper):
+                        self.move_file(file_path, science_dir)
+                else:
+                    # Simple extension
+                    for pattern in [f"*.{ext}", f"*.{ext.upper()}", f"*.{ext.capitalize()}"]:
+                        for file_path in source_dir.glob(pattern):
+                            self.move_file(file_path, science_dir)
+        
+        logger.info("Finished organizing scientific data files.")
 
     def organize_all(self):
         """
