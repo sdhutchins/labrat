@@ -10,7 +10,7 @@ from os import path
 
 # Set the home path of the setup script/package
 home = path.abspath(path.dirname(__file__))
-name = 'labrat'
+name = 'pylabrat'  # PyPI package name (internal package remains 'labrat')
 
 
 def readme():
