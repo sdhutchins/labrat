@@ -842,5 +842,261 @@ def organize(organize_science, science_dir, keyword, organize_pictures,
         raise click.Abort()
 
 
+# =============================================================================
+# Report Generation Commands
+# =============================================================================
+
+
+@main.group()
+def report():
+    """Generate laboratory reports."""
+    pass
+
+
+@report.command("qc")
+@click.option("--project", "-p", required=True, help="Project name")
+@click.option("--analyst", "-a", required=True, help="Analyst name")
+@click.option("--metric", "-m", multiple=True, help="Metric in format 'name:value[:status]'")
+@click.option("--sample-count", "-n", type=int, help="Number of samples")
+@click.option("--summary", "-s", help="Summary text")
+@click.option("--warning", "-w", multiple=True, help="Warning message")
+@click.option("--notes", help="Additional notes")
+@click.option("--output", "-o", type=click.Path(), help="Output file path")
+def qc_report(project, analyst, metric, sample_count, summary, warning, notes, output):
+    """Generate a QC (Quality Control) report.
+
+    Examples:
+        labrat report qc --project "NGS Run 001" --analyst "Dr. Smith" \\
+            --metric "Total Reads:50M:PASS" --metric "Q30:92%:PASS"
+        labrat report qc --project "Run001" --analyst "Jane" --metric "Yield:100ng" --output qc_report.txt
+    """
+    try:
+        from labrat.reports import ReportGenerator
+
+        # Parse metrics
+        metrics = []
+        for m in metric:
+            parts = m.split(":")
+            metric_dict = {"name": parts[0], "value": parts[1] if len(parts) > 1 else "N/A"}
+            if len(parts) > 2:
+                metric_dict["status"] = parts[2]
+            metrics.append(metric_dict)
+
+        generator = ReportGenerator()
+        report_text = generator.generate_qc_report(
+            project_name=project,
+            analyst=analyst,
+            metrics=metrics,
+            sample_count=sample_count,
+            summary=summary,
+            warnings=list(warning) if warning else None,
+            notes=notes,
+        )
+
+        click.echo(report_text)
+
+        if output:
+            path = generator.save_report(report_text, output_path=output, base_name="qc_report")
+            click.echo(f"\n✓ Report saved to: {path}")
+    except Exception as e:
+        click.echo(f"✗ Error: {e}", err=True)
+        raise click.Abort()
+
+
+@report.command("variant")
+@click.option("--project", "-p", required=True, help="Project name")
+@click.option("--analyst", "-a", required=True, help="Analyst name")
+@click.option("--total", "-t", required=True, type=int, help="Total number of variants")
+@click.option("--reference", "-r", help="Reference genome (e.g., GRCh38)")
+@click.option("--count", "-c", multiple=True, help="Variant count in format 'type:count' (e.g., SNV:12000)")
+@click.option("--notes", help="Additional notes")
+@click.option("--output", "-o", type=click.Path(), help="Output file path")
+def variant_report(project, analyst, total, reference, count, notes, output):
+    """Generate a variant summary report.
+
+    Examples:
+        labrat report variant --project "Exome Analysis" --analyst "Dr. Jones" \\
+            --total 15000 --count "SNV:12000" --count "INDEL:3000" --reference GRCh38
+    """
+    try:
+        from labrat.reports import ReportGenerator
+
+        # Parse variant counts
+        variant_counts = {}
+        for c in count:
+            parts = c.split(":")
+            if len(parts) == 2:
+                variant_counts[parts[0]] = int(parts[1])
+
+        generator = ReportGenerator()
+        report_text = generator.generate_variant_summary(
+            project_name=project,
+            analyst=analyst,
+            total_variants=total,
+            reference_genome=reference,
+            variant_counts=variant_counts if variant_counts else None,
+            notes=notes,
+        )
+
+        click.echo(report_text)
+
+        if output:
+            path = generator.save_report(report_text, output_path=output, base_name="variant_summary")
+            click.echo(f"\n✓ Report saved to: {path}")
+    except Exception as e:
+        click.echo(f"✗ Error: {e}", err=True)
+        raise click.Abort()
+
+
+@report.command("wetlab")
+@click.option("--experiment", "-e", required=True, help="Experiment name")
+@click.option("--researcher", "-r", required=True, help="Researcher name")
+@click.option("--objective", "-obj", required=True, help="Experiment objective")
+@click.option("--material", "-m", multiple=True, help="Material in format 'name[:concentration][:vendor]'")
+@click.option("--method", "-M", multiple=True, help="Method step")
+@click.option("--lab", "-l", help="Lab name/location")
+@click.option("--results", help="Results text")
+@click.option("--observation", "-O", multiple=True, help="Observation")
+@click.option("--conclusion", "-c", help="Conclusions")
+@click.option("--next-step", "-n", multiple=True, help="Next step")
+@click.option("--notes", help="Additional notes")
+@click.option("--output", "-o", type=click.Path(), help="Output file path")
+def wetlab_report(experiment, researcher, objective, material, method, lab,
+                  results, observation, conclusion, next_step, notes, output):
+    """Generate a wet lab experiment report.
+
+    Examples:
+        labrat report wetlab --experiment "PCR Optimization" --researcher "Dr. Smith" \\
+            --objective "Optimize PCR conditions" --material "Taq Polymerase::NEB" \\
+            --method "Mix reagents" --method "Run PCR"
+    """
+    try:
+        from labrat.reports import ReportGenerator
+
+        # Parse materials
+        materials = []
+        for m in material:
+            parts = m.split(":")
+            mat_dict = {"name": parts[0]}
+            if len(parts) > 1 and parts[1]:
+                mat_dict["concentration"] = parts[1]
+            if len(parts) > 2 and parts[2]:
+                mat_dict["vendor"] = parts[2]
+            materials.append(mat_dict)
+
+        generator = ReportGenerator()
+        report_text = generator.generate_wetlab_report(
+            experiment_name=experiment,
+            researcher=researcher,
+            objective=objective,
+            materials=materials,
+            methods=list(method),
+            lab=lab,
+            results=results,
+            observations=list(observation) if observation else None,
+            conclusions=conclusion,
+            next_steps=list(next_step) if next_step else None,
+            notes=notes,
+        )
+
+        click.echo(report_text)
+
+        if output:
+            path = generator.save_report(report_text, output_path=output, base_name="wetlab_report")
+            click.echo(f"\n✓ Report saved to: {path}")
+    except Exception as e:
+        click.echo(f"✗ Error: {e}", err=True)
+        raise click.Abort()
+
+
+# =============================================================================
+# Glossary Commands
+# =============================================================================
+
+
+@main.group()
+def glossary():
+    """Science and lab glossary commands."""
+    pass
+
+
+@glossary.command("lookup")
+@click.argument("term")
+def glossary_lookup(term):
+    """Look up a term in the science glossary.
+
+    Examples:
+        labrat glossary lookup PCR
+        labrat glossary lookup "melting temperature"
+    """
+    try:
+        from labrat.glossary import lookup_term
+
+        result = lookup_term(term)
+        if result:
+            click.echo(f"\n{result['term']}")
+            click.echo("=" * len(result['term']))
+            click.echo(f"\nDefinition: {result['definition']}")
+            if result.get('abbreviation'):
+                click.echo(f"Abbreviation: {result['abbreviation']}")
+            if result.get('category'):
+                click.echo(f"Category: {result['category']}")
+            if result.get('related'):
+                click.echo(f"Related terms: {', '.join(result['related'])}")
+            click.echo()
+        else:
+            click.echo(f"Term '{term}' not found in glossary.")
+    except Exception as e:
+        click.echo(f"✗ Error: {e}", err=True)
+        raise click.Abort()
+
+
+@glossary.command("search")
+@click.argument("query")
+@click.option("--category", "-c", help="Filter by category")
+def glossary_search(query, category):
+    """Search the glossary for matching terms.
+
+    Examples:
+        labrat glossary search DNA
+        labrat glossary search polymer --category chemistry
+    """
+    try:
+        from labrat.glossary import search_glossary
+
+        results = search_glossary(query, category=category)
+        if results:
+            click.echo(f"\nFound {len(results)} matching terms:\n")
+            for r in results:
+                click.echo(f"  • {r['term']}")
+                click.echo(f"    {r['definition'][:80]}...")
+            click.echo()
+        else:
+            click.echo(f"No terms matching '{query}' found.")
+    except Exception as e:
+        click.echo(f"✗ Error: {e}", err=True)
+        raise click.Abort()
+
+
+@glossary.command("categories")
+def glossary_categories():
+    """List all glossary categories.
+
+    Examples:
+        labrat glossary categories
+    """
+    try:
+        from labrat.glossary import list_categories
+
+        categories = list_categories()
+        click.echo("\nGlossary Categories:\n")
+        for cat in sorted(categories):
+            click.echo(f"  • {cat}")
+        click.echo()
+    except Exception as e:
+        click.echo(f"✗ Error: {e}", err=True)
+        raise click.Abort()
+
+
 if __name__ == "__main__":
     main()
