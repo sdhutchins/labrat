@@ -61,7 +61,12 @@ setup(
         'logzero>=1.3.1',
         'exmemo>=0.1.0',
         'click>=6.7',
-        'jinja2-time>=0.2.0'
+        'jinja2-time>=0.2.0',
+        'mygene>=3.2.0',
+        'myvariant>=1.0.0',
+        'gseapy>=1.1.0',
+        'pint>=0.25.0',
+        'pandas>=1.5.0',
     ],
     extras_require={
         'docs': [
