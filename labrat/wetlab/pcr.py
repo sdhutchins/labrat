@@ -177,10 +177,12 @@ def calculate_tm(
         tm = 2 * (a_count + t_count) + 4 * (g_count + c_count)
 
     elif method == "gc_content":
-        # Basic GC content method
-        # Tm = 64.9 + 41 * (G+C-16.4) / (A+T+G+C)
-        gc_content = (g_count + c_count) / length
-        tm = 64.9 + 41 * (gc_content - 0.41) * 100 / length
+        # Basic GC content method (Marmur-Doty formula for longer sequences)
+        # Tm = 81.5 + 16.6 * log10([Na+]) + 0.41 * (%GC) - 675/length
+        # Simplified version: Tm = 64.9 + 41 * (%GC/100 - 0.41) for standard salt conditions
+        gc_content = (g_count + c_count) / length  # This is a fraction (0-1)
+        gc_percent = gc_content * 100  # Convert to percentage
+        tm = 64.9 + 41 * (gc_percent / 100 - 0.41)  # Use fraction in formula
 
     elif method == "nearest_neighbor":
         # Simplified nearest neighbor method
