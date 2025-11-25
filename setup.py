@@ -48,6 +48,9 @@ setup(
     # Packages will be automatically found if not in this list.
     packages=find_packages(),
     include_package_data=True,
+    package_data={
+        'labrat.genetics': ['codons.json'],
+    },
     entry_points={
         'console_scripts': [
             'labrat=labrat.cli:main'
