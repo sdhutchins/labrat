@@ -6,8 +6,10 @@ build:
     python: "3.11"
   jobs:
     pre_install:
-      - pip install mkdocs
-      - pip install mkdocs-material
+      - pip install --upgrade pip
+      - pip install -r requirements.txt
+      - pip install mkdocs>=1.5.0 mkdocs-material>=9.0.0 mkdocs-click>=0.8.0 "mkdocstrings[python]>=0.23.0" pymdown-extensions>=10.0.0
+      - pip install -e .
 
 mkdocs:
   configuration: mkdocs.yml
