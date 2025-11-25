@@ -1,1 +1,3 @@
 include tests/
+include labrat/genetics/codons.json
+recursive-include labrat *.json

@@ -1,6 +1,7 @@
 # labrat
 
 [![Build Status](https://app.travis-ci.com/sdhutchins/labrat.svg?token=xfnbNTQhjNbir5xACn8R&branch=master)](https://app.travis-ci.com/sdhutchins/labrat)
+[![codecov](https://codecov.io/gh/sdhutchins/labrat/graph/badge.svg?token=LqA1Lqf0uu)](https://codecov.io/gh/sdhutchins/labrat)
 
 A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
 
@@ -73,6 +74,40 @@ archive_base_dir = "/Users/shutchens/Archive"
 
 # Delete the project
 archived_path = project_manager.delete_project(project_path, archive_base_dir)
+```
+
+## Tests
+
+Before running tests, ensure all dependencies are installed:
+
+```bash
+pip install -r requirements.txt
+```
+
+Or if installing the package:
+
+```bash
+pip install .
+```
+
+Run all tests using unittest:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Or run tests with pytest (if installed):
+
+```bash
+pytest tests/
+```
+
+To run a specific test file:
+
+```bash
+python -m unittest tests.test_archiver
+python -m unittest tests.test_file_organizer
+python -m unittest tests.test_project_manager
 ```
 
 ## ToDo

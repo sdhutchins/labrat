@@ -1,10 +1,9 @@
 from shutil import copytree, SameFileError, make_archive
 from datetime import datetime
-import os
-import contextlib
 from pathlib import Path
 import logzero
 from logzero import logger
+from labrat.utils import get_labrat_dir
 
 
 class Archiver:
@@ -29,8 +28,11 @@ class Archiver:
             raise ValueError(f"Archive directory parent '{self.archive_dir.parent}' does not exist.")
         logger.debug(f"Archive directory: {self.archive_dir}")
 
-        # Configure log file
-        logzero.logfile(f"archive_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+        # Configure log file in .labrat directory
+        # Store logs in user's home directory under .labrat folder
+        labrat_dir = get_labrat_dir()
+        log_file = labrat_dir / f"archive_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        logzero.logfile(str(log_file))
         logger.info("Archive initialized.")
 
     def archive(self):

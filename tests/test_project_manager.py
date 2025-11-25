@@ -1,8 +1,10 @@
 import unittest
 from pathlib import Path
 import json
-from labrat.project import ProjectManager
 import shutil
+import tempfile
+from unittest.mock import patch
+from labrat.project import ProjectManager
 
 class TestProjectManager(unittest.TestCase):
     def setUp(self):
@@ -12,14 +14,19 @@ class TestProjectManager(unittest.TestCase):
         self.test_dir = Path("./test_project_manager")
         self.project_path = self.test_dir / "test_project"
         self.archive_dir = self.test_dir / "archives"
-        self.labrat_file = Path.home() / ".labrat"
+        
+        # Create a temporary directory for .labrat config to avoid modifying user's real config
+        self.temp_labrat_dir = Path(tempfile.mkdtemp(prefix="labrat_test_"))
+        self.labrat_file = self.temp_labrat_dir / "config.json"
 
         self.test_dir.mkdir(parents=True, exist_ok=True)
         self.archive_dir.mkdir(parents=True, exist_ok=True)
 
-        # Remove existing .labrat file if it exists
-        if self.labrat_file.exists():
-            self.labrat_file.unlink()
+        # Mock get_labrat_dir to return our temporary directory for testing
+        # This ensures tests don't modify the user's actual .labrat directory
+        self.labrat_dir_patcher = patch('labrat.project.projectmanager.get_labrat_dir')
+        self.mock_get_labrat_dir = self.labrat_dir_patcher.start()
+        self.mock_get_labrat_dir.return_value = self.temp_labrat_dir
 
         self.manager = ProjectManager(username="test_user")
 
@@ -27,10 +34,15 @@ class TestProjectManager(unittest.TestCase):
         """
         Clean up test environment.
         """
+        # Stop the mock
+        self.labrat_dir_patcher.stop()
+        
+        # Clean up test directories
         if self.test_dir.exists():
             shutil.rmtree(self.test_dir)
-        if self.labrat_file.exists():
-            self.labrat_file.unlink()
+        # Clean up temporary .labrat directory used for testing
+        if self.temp_labrat_dir.exists():
+            shutil.rmtree(self.temp_labrat_dir)
 
     def test_new_project(self):
         """

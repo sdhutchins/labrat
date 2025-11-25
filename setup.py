@@ -10,7 +10,7 @@ from os import path
 
 # Set the home path of the setup script/package
 home = path.abspath(path.dirname(__file__))
-name = 'labrat'
+name = 'pylabrat'  # PyPI package name (internal package remains 'labrat')
 
 
 def readme():
@@ -24,7 +24,7 @@ setup(
     author='Shaurita Hutchins',
     author_email='sdhutchins@outlook.com',
     description="A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs.",
-    version='0.2',
+    version='0.1',
     long_description=readme(),
     url='https://github.com/sdhutchins/labrat',
     license='MIT',
@@ -48,6 +48,9 @@ setup(
     # Packages will be automatically found if not in this list.
     packages=find_packages(),
     include_package_data=True,
+    package_data={
+        'labrat.genetics': ['codons.json'],
+    },
     entry_points={
         'console_scripts': [
             'labrat=labrat.cli:main'
@@ -57,8 +60,18 @@ setup(
         'cookiecutter>=1.5.1',
         'logzero>=1.3.1',
         'exmemo>=0.1.0',
-        'click>=6.7'
+        'click>=6.7',
+        'jinja2-time>=0.2.0'
     ],
+    extras_require={
+        'docs': [
+            'mkdocs>=1.5.0',
+            'mkdocs-material>=9.0.0',
+            'mkdocs-click>=0.8.0',
+            'mkdocstrings[python]>=0.23.0',
+            'pymdown-extensions>=10.0.0'
+        ]
+    },
     zip_safe=False,
     tests_require=['pytest']
 )
