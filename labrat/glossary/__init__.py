@@ -8,6 +8,11 @@ from .terms import (
     list_categories,
     get_terms_by_category,
 )
+from .external import (
+    fetch_wikipedia_definition,
+    search_wikipedia,
+    fetch_pubmed_definition,
+)
 
 __all__ = [
     "GLOSSARY",
@@ -15,4 +20,7 @@ __all__ = [
     "search_glossary",
     "list_categories",
     "get_terms_by_category",
+    "fetch_wikipedia_definition",
+    "search_wikipedia",
+    "fetch_pubmed_definition",
 ]
