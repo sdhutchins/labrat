@@ -7,73 +7,82 @@ A basic science lab framework aimed at reproducibility and lab management. This 
 
 ## Features
 
-- Easily use math functions to dilute solutions, calculate molarity, etc.
-- Backup your documents using the command-line
-- Manage lab inventory using a GUI
-- Create and manage new projects using the command-line
+- Create, list, and track/manage computational biology projects with structured templates
+- Calculate solution dilutions, molarity, transmittance/absorbance conversions, and more
+- Automatically organize scientific data files (FASTQ, FASTA, SAM, BAM, VCF, etc.) and others files like pictures, videos, and archives
+- Archive projects and directories with timestamped backups
+- Convert DNA sequences to amino acids and analyze genetic data
+- Full-featured CLI for all major operations
 
 ## Install
 
-1. Clone this repository.
-2. Change to the downloaded repository's base directory.
-3. `pip install .`
+Install from PyPI:
+```bash
+pip install pylabrat
+```
 
-If you want to develop or contribute to this package, install with `pip install -e .`
+Or install from source:
+```bash
+git clone https://github.com/sdhutchins/labrat.git
+cd labrat
+pip install .
+```
+
+For development, install in editable mode:
+```bash
+pip install -e .
+```
 
 ## Examples
 
-### Dilute a stock concentration
+### Command-Line Interface
 
+Create a new project:
+```bash
+labrat project new --type computational-biology --name "KARG Analysis" \
+  --path ./karg_analysis --description "Analyze the KARG data"
+```
+
+List all projects:
+```bash
+labrat project list
+```
+
+Archive files or directories:
+```bash
+labrat archive --source ./my_project --destination ~/Archive --name "project_backup"
+```
+
+Organize scientific data files:
+```bash
+labrat organize --science
+```
+
+### Python API
+
+Calculate solution dilutions:
 ```python
 from labrat.math import dilute_stock
 
-# Get the final concentration
-dilute_stock(100, 2, **{'vF': 4})
+# Calculate final concentration
+final_conc = dilute_stock(100, 2, vF=4)  # Returns 50.0
 ```
 
-### Project Management
-
-Create a new project using the below code. This will create a `.labrat` file that contains the project information for
-any project created.
-
+Manage projects programmatically:
 ```python
-# Create a new project
-import os
 from labrat.project import ProjectManager
 
-# Initialize the ProjectManager with a username
-project_manager = ProjectManager('Dr. Jane Doe')
-
 # Create a new project
-project_manager.new_project(
+manager = ProjectManager('Dr. Jane Doe')
+manager.new_project(
     project_type='computational-biology',
     project_name='KARG Analysis',
-    project_path=os.getcwd(),
+    project_path='./karg_analysis',
     description="Analyze the KARG data."
 )
-```
 
-Archive a project:
-
-```python
-from projectmanager import ProjectManager
-
-project_manager = ProjectManager()
-project_path = "/Users/shutchens/Documents/Git-Repos/labrat/karg_analysis"
-archive_base_dir = "/Users/shutchens/Archive"
-
-archive_dir = project_manager.archive_project(project_path=project_path, archive_base_dir=archive_base_dir)
-```
-
-Delete a project:
-
-```python
-# Path to the project to delete
-project_path = "/Users/shutchens/Documents/Git-Repos/labrat/karg_analysis"
-archive_base_dir = "/Users/shutchens/Archive"
-
-# Delete the project
-archived_path = project_manager.delete_project(project_path, archive_base_dir)
+# List all projects
+projects = manager.list_projects()
 ```
 
 ## Tests
@@ -114,7 +123,6 @@ python -m unittest tests.test_project_manager
 
 - [ ] Add a lab inventory app
 - [ ] Add project report template
-- [ ] Command-line functionality
 - [ ] Integrate [exmemo](https://github.com/kalekundert/exmemo)
 
 ## Author
