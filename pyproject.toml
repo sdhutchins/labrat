@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools >= 77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pylabrat"
+version = "0.1"
+description = "A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs."
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Shaurita Hutchins", email = "shaurita.d.hutchins@gmail.com"}
+]
+keywords = ["science", "lab", "psychiatry", "math", "filemanagement"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Unix",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+
+dependencies = [
+    "cookiecutter>=1.5.1",
+    "logzero>=1.3.1",
+    "exmemo>=0.1.0",
+    "click>=6.7",
+    "jinja2-time>=0.2.0",
+]
+
+[project.optional-dependencies]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocs-click>=0.8.0",
+    "mkdocstrings[python]>=0.23.0",
+    "pymdown-extensions>=10.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/sdhutchins/labrat"
+Documentation = "https://labrat.readthedocs.io/en/latest/"
+Releases = "https://github.com/sdhutchins/labrat/releases"
+Issues = "https://github.com/sdhutchins/labrat/issues"
+
+[project.scripts]
+labrat = "labrat.cli:main"
+
+[tool.setuptools]
+packages = {find = {}}
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.package-data]
+"labrat.genetics" = ["codons.json"]
