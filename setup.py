@@ -1,77 +1,11 @@
 #!/usr/bin/env python3
+"""Minimal setup.py for backwards compatibility.
 
-""" This is the setup.py script for setting up the package and fulfilling any
-necessary requirements.
+All package configuration is now in pyproject.toml.
+This file is kept for backwards compatibility with older tools.
 """
 
-from setuptools import setup, find_packages
-from codecs import open  # To use a consistent encoding
-from os import path
+from setuptools import setup
 
-# Set the home path of the setup script/package
-home = path.abspath(path.dirname(__file__))
-name = 'pylabrat'  # PyPI package name (internal package remains 'labrat')
-
-
-def readme():
-    """Get the long description from the README file."""
-    with open(path.join(home, 'README.md'), encoding='utf-8') as f:
-        return f.read()
-
-
-setup(
-    name=name,
-    author='Shaurita Hutchins',
-    author_email='sdhutchins@outlook.com',
-    description="A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs.",
-    version='0.1',
-    long_description=readme(),
-    url='https://github.com/sdhutchins/labrat',
-    license='MIT',
-    keywords='science lab pyschiatry math filemanagement',
-    classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Programming Language :: Python :: 3',
-        'Operating System :: POSIX :: Linux',
-        'Operating System :: Unix',
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
-    ],
-    project_urls={
-            'Documentation': '',
-            'Releases': 'https://github.com/sdhutchins/labrat/releases',
-            'Issues': 'https://github.com/sdhutchins/labrat/issues',
-            },
-    # Packages will be automatically found if not in this list.
-    packages=find_packages(),
-    include_package_data=True,
-    package_data={
-        'labrat.genetics': ['codons.json'],
-    },
-    entry_points={
-        'console_scripts': [
-            'labrat=labrat.cli:main'
-        ]
-    },
-    install_requires=[
-        'cookiecutter>=1.5.1',
-        'logzero>=1.3.1',
-        'exmemo>=0.1.0',
-        'click>=6.7',
-        'jinja2-time>=0.2.0'
-    ],
-    extras_require={
-        'docs': [
-            'mkdocs>=1.5.0',
-            'mkdocs-material>=9.0.0',
-            'mkdocs-click>=0.8.0',
-            'mkdocstrings[python]>=0.23.0',
-            'pymdown-extensions>=10.0.0'
-        ]
-    },
-    zip_safe=False,
-    tests_require=['pytest']
-)
+# All configuration is in pyproject.toml
+setup()
