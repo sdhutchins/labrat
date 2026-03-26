@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/sdhutchins/labrat/graph/badge.svg?token=LqA1Lqf0uu)](https://codecov.io/gh/sdhutchins/labrat)
 ![PyPI - Version](https://img.shields.io/pypi/v/pylabrat)
 [![DOI](https://zenodo.org/badge/99277244.svg)](https://doi.org/10.5281/zenodo.17705600)
+[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
 
 A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
 
