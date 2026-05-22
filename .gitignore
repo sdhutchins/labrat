@@ -138,7 +138,6 @@ labrat-env/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
 /site
 
 # mypy
@@ -164,3 +163,10 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+# Great Docs build directory (ephemeral, do not commit)
+great-docs/
+
+# Great Docs versioned-build artifacts
+.great-docs-build/
+.great-docs-cache/
+.great-docs/

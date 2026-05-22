@@ -34,20 +34,6 @@ Install all required dependencies:
 pip install -r requirements.txt
 ```
 
-## Install Documentation Dependencies
-
-To build and serve the documentation locally:
-
-```bash
-pip install -e ".[docs]"
-```
-
-Or install manually:
-
-```bash
-pip install mkdocs-material mkdocs-click mkdocstrings[python] pymdown-extensions
-```
-
 ## Verify Installation
 
 Run the tests to verify everything is working:

@@ -34,18 +34,8 @@ dependencies = [
     "jinja2-time>=0.2.0",
 ]
 
-[project.optional-dependencies]
-docs = [
-    "mkdocs>=1.5.0",
-    "mkdocs-material>=9.0.0",
-    "mkdocs-click>=0.8.0",
-    "mkdocstrings[python]>=0.23.0",
-    "pymdown-extensions>=10.0.0",
-]
-
 [project.urls]
 Homepage = "https://github.com/sdhutchins/labrat"
-Documentation = "https://labrat.readthedocs.io/en/latest/"
 Releases = "https://github.com/sdhutchins/labrat/releases"
 Issues = "https://github.com/sdhutchins/labrat/issues"
 
