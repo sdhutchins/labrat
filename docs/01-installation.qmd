@@ -1,0 +1,77 @@
+---
+title: "Installation"
+guide-section: "Getting Started"
+---
+
+## Requirements
+
+Labrat requires Python 3.10 or later and `pip`.
+
+## Install from PyPI
+
+```bash
+pip install pylabrat
+```
+
+An isolated environment keeps Labrat and its dependencies separate from the
+system Python installation:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install pylabrat
+```
+
+## Install from source
+
+```bash
+git clone https://github.com/sdhutchins/labrat.git
+cd labrat
+pip install .
+```
+
+Use an editable installation while developing Labrat:
+
+```bash
+pip install -e .
+```
+
+## Verify the installation
+
+```bash
+labrat --help
+labrat query --help
+```
+
+Confirm that the Python package is available in the same environment:
+
+```bash
+python -c "import labrat; print(labrat.__file__)"
+```
+
+## Local state
+
+Project and file-management features use `~/.labrat/` for configuration and
+logs. The project manager creates `~/.labrat/config.json` when it first needs
+the project list.
+
+## Build the documentation
+
+Great Docs requires Python 3.11 or later and a separate Quarto installation.
+Install the documentation dependencies and build the site from the repository
+root:
+
+```bash
+pip install -e ".[docs]"
+great-docs build
+```
+
+The generated site is written to `great-docs/_site/`. Preview it locally with:
+
+```bash
+great-docs preview
+```
+
+The source pages live in `docs/`. Great Docs generates `great-docs/` during a
+build, so generated files should not be edited or committed.
