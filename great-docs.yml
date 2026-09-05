@@ -86,6 +86,7 @@ reference:
       - math.transmittance_to_absorbance
 
 site:
+  css: docs/labrat.css
   toc: true
   toc-depth: 2
   toc-title: On this page

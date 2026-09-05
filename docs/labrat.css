@@ -1,0 +1,39 @@
+/* Use Labrat's palette for CLI group labels and the selected command. */
+body.doc-cli-reference {
+    --labrat-cli-group: #673148;
+    --labrat-cli-active: #B78899;
+}
+
+/* Keep generated CLI type badges in the same palette as their sidebar groups. */
+body.doc-cli-reference .content span.doc-label-cli::after,
+body.doc-cli-reference .content span.doc-label-cli-group::after {
+    color: var(--labrat-cli-group);
+    background-color: color-mix(
+        in srgb,
+        var(--labrat-cli-group) 5%,
+        transparent
+    );
+    border-color: var(--labrat-cli-group);
+}
+
+/* Scope the group treatment so other generated reference labels stay distinct. */
+body.doc-cli-reference #quarto-sidebar .sidebar-item-section
+    > .sidebar-item-container
+    > .sidebar-item-text
+    .menu-text {
+    color: var(--labrat-cli-group);
+    background-color: color-mix(
+        in srgb,
+        var(--labrat-cli-group) 10%,
+        transparent
+    );
+    border-color: var(--labrat-cli-group);
+}
+
+/* The underline preserves an additional active-state cue beyond color alone. */
+body.doc-cli-reference
+    #quarto-sidebar
+    a.sidebar-item-text.sidebar-link.active {
+    color: var(--labrat-cli-active);
+    text-decoration-color: var(--labrat-cli-active);
+}
