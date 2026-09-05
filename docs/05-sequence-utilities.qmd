@@ -1,0 +1,71 @@
+---
+title: "Sequence Utilities"
+guide-section: "Guides"
+---
+
+Labrat exposes small Python utilities for nucleotide composition, DNA
+complements, and translation of a FASTA sequence. These functions are useful
+for quick checks and small teaching examples.
+
+## Count canonical nucleotides
+
+```python
+from labrat.genetics import atgc_content
+
+counts = atgc_content("ATGCGAT")
+print(counts)
+```
+
+The result is:
+
+```text
+{'A': 2, 'T': 2, 'G': 2, 'C': 1}
+```
+
+Input is case-insensitive. Characters other than `A`, `T`, `G`, and `C` are
+ignored, so the returned counts may not sum to the original sequence length.
+
+## Create a complementary strand
+
+```python
+from labrat.genetics import complementary_dna
+
+complement = complementary_dna("ATGN")
+print(complement)
+```
+
+The result is `TACX`. Non-canonical characters become `X`. The function returns
+the direct complement in the submitted order, not the reverse complement.
+
+## Translate a FASTA sequence
+
+Create a small FASTA file whose nucleotide count is divisible by three:
+
+```text
+>example
+ATGAAATGG
+```
+
+Translate it with:
+
+```python
+from labrat.genetics import dna2aminoacid
+
+protein = dna2aminoacid("example.fasta")
+print(protein)
+```
+
+The result is `MKW`. Labrat removes whitespace, accepts lowercase sequence
+characters, and skips every line beginning with `>`. Stop codons are returned
+as `_` rather than terminating translation.
+
+Translation raises an error when the sequence is empty, its length is not a
+multiple of three, or a codon contains a character outside `A`, `T`, `G`, and
+`C`.
+
+## Laboratory calculations
+
+Labrat contains legacy laboratory calculation functions in its API reference.
+They are not included yet as practical guide examples because their units and
+formulas need validation before use in experimental work. These functions will
+be removed in a future release.
