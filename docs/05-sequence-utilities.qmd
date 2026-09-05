@@ -3,9 +3,9 @@ title: "Sequence Utilities"
 guide-section: "Guides"
 ---
 
-Labrat exposes small Python utilities for nucleotide composition, DNA
-complements, and translation of a FASTA sequence. These functions are useful
-for quick checks and small teaching examples.
+Labrat provides focused Python utilities for nucleotide composition, DNA
+complements, and FASTA translation. They fit quick checks in scripts,
+notebooks, and teaching examples.
 
 ## Count canonical nucleotides
 
@@ -22,8 +22,8 @@ The result is:
 {'A': 2, 'T': 2, 'G': 2, 'C': 1}
 ```
 
-Input is case-insensitive. Characters other than `A`, `T`, `G`, and `C` are
-ignored, so the returned counts may not sum to the original sequence length.
+Input is case-insensitive. Counts include `A`, `T`, `G`, and `C` only, so the
+total can be smaller than the submitted sequence length.
 
 ## Create a complementary strand
 
@@ -35,7 +35,8 @@ print(complement)
 ```
 
 The result is `TACX`. Non-canonical characters become `X`. The function returns
-the direct complement in the submitted order, not the reverse complement.
+the direct complement in the submitted order. Reverse this sequence when you
+need the reverse complement.
 
 ## Translate a FASTA sequence
 
@@ -57,15 +58,14 @@ print(protein)
 
 The result is `MKW`. Labrat removes whitespace, accepts lowercase sequence
 characters, and skips every line beginning with `>`. Stop codons are returned
-as `_` rather than terminating translation.
+as `_`, and translation continues with the next codon.
 
-Translation raises an error when the sequence is empty, its length is not a
-multiple of three, or a codon contains a character outside `A`, `T`, `G`, and
-`C`.
+Translation raises an error for an empty sequence, a length that leaves a
+remainder after division by three, or a codon containing a character outside
+`A`, `T`, `G`, and `C`.
 
 ## Laboratory calculations
 
-Labrat contains legacy laboratory calculation functions in its API reference.
-They are not included yet as practical guide examples because their units and
-formulas need validation before use in experimental work. These functions will
-be removed in a future release.
+Labrat also provides laboratory calculations through its Python API. These
+functions accept plain numeric values, so confirm the intended units before
+using a result in experimental work.

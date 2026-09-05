@@ -13,7 +13,7 @@ research tasks.
   MyVariant, and PubTator 3.
 - [Manage projects](03-project-management.qmd) from a reusable template and
   keep a local project list.
-- [Archive and organize files](04-files-and-archives.qmd).
+- [Organize files and folders](04-files-and-archives.qmd).
 - [Inspect and translate sequences](05-sequence-utilities.qmd) from Python.
 
 ## Choose an interface
@@ -39,9 +39,8 @@ print(result.retrieved_at)
 ## Query Limitations
 
 Query results depend on live external services and their current database
-builds. Labrat records retrieval time and provider metadata, but those fields
-do not freeze the underlying resource. Save JSON output when a result supports
-an analysis or report.
+builds. Labrat records retrieval time and provider metadata. Save JSON output
+to preserve the returned content used in an analysis or report.
 
 File organization commands modify local files. Review the relevant guide and
 the files in `Downloads` and `Documents` before running them.

@@ -35,11 +35,11 @@ labrat project list
 ```
 
 Labrat stores the absolute project path, description, project type, creation
-time, and last-modified time in `~/.labrat/config.json`. The project list points to
-projects but does not copy their contents.
+time, and last-modified time in `~/.labrat/config.json`. The project list records
+pointers to the original project directories.
 
-Do not treat the project list as a backup. The project files and version-control
-history remain the authoritative record of the analysis.
+Keep project files, version-control history, and separate backups as the
+authoritative records of an analysis.
 
 ## Use the Python API
 
@@ -76,4 +76,4 @@ Confirm that the archive was written to the intended filesystem before relying
 on it for recovery. Deleting a project removes the original directory tree.
 :::
 
-For a non-destructive backup, use `labrat archive` without `project delete`.
+To preserve the source directory while creating a backup, use `labrat archive`.

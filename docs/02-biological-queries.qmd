@@ -95,7 +95,7 @@ labrat query literature --chemical sildenafil --disease \
 Use either free text or structured options in one command. A relation query
 requires exactly two structured entities. Labrat also requires an exact unique
 autocomplete name before constructing a semantic query. An ambiguous concept
-returns candidate names instead of silently selecting the first match.
+returns candidate names so you can choose the exact match.
 
 `--page` selects a PubTator result page. `--limit` controls how many records are
 shown in the terminal, but Labrat retains the complete returned page in JSON.
@@ -136,11 +136,11 @@ print(highest_provider_hit["symbol"])
 
 MyGene normally returns hits in provider rank order. The Rich terminal renderer
 explicitly sorts them by `_score` before choosing the displayed top match. Code
-that selects a record should inspect identifiers and taxonomy rather than rely
-on list position alone.
+that selects a record should use identifiers and taxonomy to confirm identity,
+with list position serving only as provider rank.
 
 ## Expected failures
 
 Labrat converts provider errors, timeouts, unexpected response shapes, and
 ambiguous PubTator concepts into readable query errors. Empty results are valid
-responses and appear as an empty-result panel rather than a fabricated match.
+responses and appear as an empty-result panel.

@@ -73,5 +73,5 @@ The generated site is written to `great-docs/_site/`. Preview it locally with:
 great-docs preview
 ```
 
-The source pages live in `docs/`. Great Docs generates `great-docs/` during a
-build, so generated files should not be edited or committed.
+The source pages live in `docs/`. Great Docs regenerates `great-docs/` during
+each build, and the directory remains outside version control.
