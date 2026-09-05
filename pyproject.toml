@@ -5,7 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pylabrat"
 version = "0.1"
-description = "A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs."
+description = """
+A Python framework designed to improve reproducibility, simplify laboratory \
+management, and support common biomedical research tasks."""
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -15,7 +17,7 @@ authors = [
 ]
 keywords = ["science", "lab", "genetics", "math", "filemanagement"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
     "Operating System :: POSIX :: Linux",
     "Operating System :: Unix",

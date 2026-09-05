@@ -1,21 +1,22 @@
 # labrat
 
-[![Build Status](https://app.travis-ci.com/sdhutchins/labrat.svg?token=xfnbNTQhjNbir5xACn8R&branch=master)](https://app.travis-ci.com/sdhutchins/labrat)
+[![Test Package Build](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml/badge.svg?branch=main)](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml)
 [![codecov](https://codecov.io/gh/sdhutchins/labrat/graph/badge.svg?token=LqA1Lqf0uu)](https://codecov.io/gh/sdhutchins/labrat)
 ![PyPI - Version](https://img.shields.io/pypi/v/pylabrat)
 [![DOI](https://zenodo.org/badge/99277244.svg)](https://doi.org/10.5281/zenodo.17705600)
 
-A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
+Labrat is a Python framework designed to improve reproducibility, simplify
+laboratory management, and support common biomedical research tasks.
 
 ## Features
 
-- Create, list, and track/manage computational biology projects with structured templates
+- Create, list, and track computational biology projects from reusable templates
 - Calculate solution dilutions, molarity, transmittance/absorbance conversions, and more
-- Automatically organize scientific data files (FASTQ, FASTA, SAM, BAM, VCF, etc.) and others files like pictures, videos, and archives
+- Organize scientific data, images, videos, and archives by file type
 - Archive projects and directories with timestamped backups
-- Convert DNA sequences to amino acids and analyze genetic data
+- Count canonical nucleotides, create DNA complements, and translate FASTA sequences
 - Query gene, variant, and biomedical literature resources with provenance
-- Full-featured CLI for all major operations
+- Use the same tools from the command line or Python
 
 ## Install
 
@@ -153,7 +154,7 @@ python -m unittest tests.test_file_organizer
 python -m unittest tests.test_project_manager
 ```
 
-## ToDo
+## Roadmap
 
 - [ ] Add a lab inventory app
 - [ ] Add project report template

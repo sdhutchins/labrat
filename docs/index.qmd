@@ -2,9 +2,9 @@
 title: "User Guide"
 ---
 
-Labrat provides command-line and Python tools for reproducible basic-science
-workflows. It combines project and file management, sequence utilities, and
-queries against public biological databases.
+Labrat provides command-line and Python tools designed to improve
+reproducibility, simplify laboratory management, and support common biomedical
+research tasks.
 
 ## Start here
 
