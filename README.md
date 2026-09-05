@@ -104,6 +104,21 @@ manager.new_project(
 projects = manager.list_projects()
 ```
 
+## Documentation
+
+The complete documentation is available at
+[sdhutchins.github.io/labrat](https://sdhutchins.github.io/labrat/).
+
+Great Docs requires Python 3.11 or later and Quarto. Build the documentation
+locally with:
+
+```bash
+pip install -e ".[docs]"
+great-docs build
+```
+
+The generated site is written to `great-docs/_site/` and is not committed.
+
 ## Tests
 
 Before running tests, ensure all dependencies are installed:
@@ -153,8 +168,8 @@ Shaurita Hutchins · [@sdhutchins](https://github.com/sdhutchins)
 
 If you would like to contribute to this package, install the package in
 development mode, and check out our [contributing
-guidelines](https://github.com/sdhutchins/labrat/blob/master/CONTRIBUTING.md).
+guidelines](https://github.com/sdhutchins/labrat/blob/main/CONTRIBUTING.md).
 
 ## License
 
-[MIT](https://github.com/sdhutchins/labrat/blob/master/LICENSE)
+[MIT](https://github.com/sdhutchins/labrat/blob/main/LICENSE)

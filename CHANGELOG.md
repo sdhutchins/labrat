@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Minimum supported Python version raised to 3.10
+- Documentation migrated fully from Jekyll and manual reference pages to Great Docs
 
 ## [0.1.0] - 2025-11-21
 

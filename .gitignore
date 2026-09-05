@@ -138,6 +138,7 @@ labrat-env/
 # Rope project settings
 .ropeproject
 
+# Preserve legacy generated documentation without treating it as source.
 /site
 
 # mypy
