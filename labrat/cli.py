@@ -1,15 +1,152 @@
 # -*- coding: utf-8 -*-
 """Command-line interface for labrat."""
-import click
+
+import json
 from pathlib import Path
-from labrat.project import ProjectManager
+
+import click
+
 from labrat.filemanager import Archiver, FileOrganizer
+from labrat.project import ProjectManager
+from labrat.query import QueryError, QueryResult
+from labrat.query import query_gene as run_gene_query
+from labrat.query import query_literature as run_literature_query
+from labrat.query import query_variant as run_variant_query
+from labrat.query.render import render_query_result
+
+OUTPUT_FORMAT = click.Choice(["table", "json"], case_sensitive=False)
+RELATION_TYPE = click.Choice(
+    [
+        "ANY",
+        "associate",
+        "cause",
+        "compare",
+        "convert",
+        "cotreat",
+        "drug_interact",
+        "inhibit",
+        "interact",
+        "negative_correlate",
+        "positive_correlate",
+        "prevent",
+        "stimulate",
+        "treat",
+    ],
+    case_sensitive=False,
+)
 
 
 @click.group()
 def main():
     """Labrat - A basic science lab framework for reproducibility and lab management."""
     pass
+
+
+def _echo_query_result(
+    result: QueryResult,
+    output_format: str,
+    show_all_gene_matches: bool = False,
+) -> None:
+    """Dispatch either stable JSON or a query-specific terminal summary."""
+    if output_format.lower() == "json":
+        # Bypass Rich so redirected JSON remains valid for downstream parsers.
+        click.echo(json.dumps(result.to_dict(), indent=2, sort_keys=True))
+        return
+
+    render_query_result(result, show_all_gene_matches=show_all_gene_matches)
+
+
+@main.group("query")
+def query_group() -> None:
+    """Query public gene, variant, and biomedical literature resources."""
+
+
+@query_group.command("gene")
+@click.argument("gene")
+@click.option("--species", default="human", show_default=True)
+@click.option("--limit", default=5, show_default=True, type=click.IntRange(1, 100))
+@click.option("--all-matches", is_flag=True, help="Display lower-ranked matches.")
+@click.option("--format", "output_format", default="table", type=OUTPUT_FORMAT)
+def query_gene_command(
+    gene: str,
+    species: str,
+    limit: int,
+    all_matches: bool,
+    output_format: str,
+) -> None:
+    """Find gene annotations through MyGene."""
+    try:
+        result = run_gene_query(gene, species=species, limit=limit)
+    except QueryError as error:
+        raise click.ClickException(str(error)) from error
+    _echo_query_result(
+        result,
+        output_format,
+        show_all_gene_matches=all_matches,
+    )
+
+
+@query_group.command("variant")
+@click.argument("variant")
+@click.option("--limit", default=5, show_default=True, type=click.IntRange(1, 100))
+@click.option("--format", "output_format", default="table", type=OUTPUT_FORMAT)
+def query_variant_command(
+    variant: str,
+    limit: int,
+    output_format: str,
+) -> None:
+    """Find an rsID or hg19 genomic HGVS identifier through MyVariant."""
+    try:
+        result = run_variant_query(variant, limit=limit)
+    except QueryError as error:
+        raise click.ClickException(str(error)) from error
+    _echo_query_result(result, output_format)
+
+
+@query_group.command("literature")
+@click.argument("search_text", required=False)
+@click.option("--gene", help="Resolve and search for a gene concept.")
+@click.option("--disease", help="Resolve and search for a disease concept.")
+@click.option("--variant", help="Resolve and search for a variant concept.")
+@click.option("--chemical", help="Resolve and search for a chemical concept.")
+@click.option("--relation", type=RELATION_TYPE, help="Require an extracted relation.")
+@click.option("--page", default=1, show_default=True, type=click.IntRange(min=1))
+@click.option("--limit", default=10, show_default=True, type=click.IntRange(1, 100))
+@click.option("--format", "output_format", default="table", type=OUTPUT_FORMAT)
+def query_literature_command(
+    search_text: str | None,
+    gene: str | None,
+    disease: str | None,
+    variant: str | None,
+    chemical: str | None,
+    relation: str | None,
+    page: int,
+    limit: int,
+    output_format: str,
+) -> None:
+    """Find biomedical publications through PubTator 3."""
+    # Fixed entity-type order keeps generated PubTator queries deterministic.
+    entities = {
+        entity_type: value
+        for entity_type, value in {
+            "gene": gene,
+            "disease": disease,
+            "variant": variant,
+            "chemical": chemical,
+        }.items()
+        if value is not None
+    }
+    try:
+        result = run_literature_query(
+            search_text=search_text,
+            entities=entities,
+            relation=relation,
+            page=page,
+            limit=limit,
+        )
+    except QueryError as error:
+        raise click.ClickException(str(error)) from error
+    _echo_query_result(result, output_format)
 
 
 @main.group()

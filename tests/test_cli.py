@@ -1,8 +1,11 @@
-import pytest
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
+import pytest
 from click.testing import CliRunner
+
 from labrat.cli import main
+from labrat.query.models import QueryResult
 
 
 @pytest.fixture
@@ -18,6 +21,111 @@ def test_main_help(runner):
     assert "project" in result.output
     assert "archive" in result.output
     assert "organize" in result.output
+    assert "query" in result.output
+
+
+@patch("labrat.cli.run_gene_query")
+def test_query_gene_command(mock_query, runner):
+    """Test rendering a MyGene result through the CLI."""
+    mock_query.return_value = QueryResult(
+        kind="gene",
+        query="BMPR2",
+        provider="mygene",
+        retrieved_at="2026-09-04T12:00:00+00:00",
+        metadata={"build_version": "20260830"},
+        data={
+            "hits": [
+                {
+                    "_id": "659",
+                    "_score": 144.19098,
+                    "symbol": "BMPR2",
+                    "name": "bone morphogenetic protein receptor type 2",
+                    "taxid": 9606,
+                    "entrezgene": 659,
+                }
+            ]
+        },
+    )
+
+    result = runner.invoke(main, ["query", "gene", "BMPR2"])
+
+    assert result.exit_code == 0
+    assert "Highest-ranked MyGene match · BMPR2" in result.output
+    assert "bone morphogenetic" in result.output
+    assert "MyGene score 144.19098" in result.output
+    assert "Source: mygene" in result.output
+    assert "build 20260830" in result.output
+    assert "\x1b[" not in result.output
+
+
+@patch("labrat.cli.run_variant_query")
+def test_query_variant_json_command(mock_query, runner):
+    """Test stable JSON output for programmatic variant queries."""
+    mock_query.return_value = QueryResult(
+        kind="variant",
+        query="rs429358",
+        provider="myvariant",
+        retrieved_at="2026-09-04T12:00:00+00:00",
+        metadata={"build_version": "20250624"},
+        data={"hits": [{"_id": "chr19:g.44908684T>C"}]},
+    )
+
+    result = runner.invoke(
+        main,
+        ["query", "variant", "rs429358", "--format", "json"],
+    )
+
+    assert result.exit_code == 0
+    assert '"provider": "myvariant"' in result.output
+    assert '"query": "rs429358"' in result.output
+
+
+@patch("labrat.cli.run_literature_query")
+def test_query_literature_structured_command(mock_query, runner):
+    """Test forwarding structured biological concepts to PubTator."""
+    mock_query.return_value = QueryResult(
+        kind="literature",
+        query="@GENE_BMPR2 AND @DISEASE_Pulmonary_Arterial_Hypertension",
+        provider="pubtator3",
+        retrieved_at="2026-09-04T12:00:00+00:00",
+        metadata={"api_version": "3.0"},
+        data={
+            "results": [
+                {
+                    "pmid": 34023242,
+                    "title": "Significance of BMPR2 mutations in PAH",
+                    "journal": "Respir Investig",
+                    "meta_date_publication": "2021 Jul",
+                }
+            ]
+        },
+    )
+
+    result = runner.invoke(
+        main,
+        [
+            "query",
+            "literature",
+            "--gene",
+            "BMPR2",
+            "--disease",
+            "pulmonary arterial hypertension",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "Significance of BMPR2 mutations in PAH" in result.output
+    mock_query.assert_called_once_with(
+        search_text=None,
+        entities={
+            "gene": "BMPR2",
+            "disease": "pulmonary arterial hypertension",
+        },
+        relation=None,
+        page=1,
+        limit=10,
+    )
+
 
 def test_project_group_help(runner):
     """Test that the project group shows help."""
