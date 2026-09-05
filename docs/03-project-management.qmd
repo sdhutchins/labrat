@@ -1,0 +1,79 @@
+---
+title: "Project Management"
+guide-section: "Guides"
+---
+
+Labrat can create projects from Cookiecutter templates and record their paths
+in a local registry. This is useful when several analyses need the same initial
+directory structure and metadata.
+
+## Create a project
+
+Choose a template, a display name, a parent directory, and a description:
+
+```bash
+labrat project new \
+  --type computational-biology \
+  --name "BMPR2 Variant Analysis" \
+  --path ./projects \
+  --description "Analyze BMPR2 variants in pulmonary hypertension"
+```
+
+The default template names are `computational-biology`, `data-science`, and
+`andymcdgeo-streamlit`. Templates are remote repositories, so first-time
+project creation requires network access.
+
+`--path` identifies the parent directory. Cookiecutter creates the project
+inside that directory. Labrat replaces spaces in the submitted project name
+with underscores before passing it to the template. The template can still
+control the final directory name.
+
+## Inspect your projects
+
+```bash
+labrat project list
+```
+
+Labrat stores the absolute project path, description, project type, creation
+time, and last-modified time in `~/.labrat/config.json`. The project list points to
+projects but does not copy their contents.
+
+Do not treat the project list as a backup. The project files and version-control
+history remain the authoritative record of the analysis.
+
+## Use the Python API
+
+```python
+from pathlib import Path
+
+from labrat.project import ProjectManager
+
+manager = ProjectManager(username="Dr. Jane Doe")
+projects = manager.list_projects()
+
+for project in projects:
+    print(project["name"], Path(project["path"]))
+```
+
+The Python API also exposes methods to update timestamps, recursively list
+project files, add templates, and archive projects. See the generated
+`ProjectManager` API reference for their full signatures.
+
+## Delete with an archive
+
+```bash
+labrat project delete \
+  --path ./projects/BMPR2_Analysis \
+  --archive-dir ./project-archives
+```
+
+This command asks for confirmation. It copies and zips the project before
+recursively deleting the original directory and removing its registry entry.
+The archive parent directory must already exist.
+
+::: {.callout-warning}
+Confirm that the archive was written to the intended filesystem before relying
+on it for recovery. Deleting a project removes the original directory tree.
+:::
+
+For a non-destructive backup, use `labrat archive` without `project delete`.

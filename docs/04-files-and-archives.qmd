@@ -1,0 +1,80 @@
+---
+title: "Files and Archives"
+guide-section: "Guides"
+---
+
+Labrat provides two distinct file workflows. Archiving copies a directory and
+creates a ZIP file. Organizing moves matching files out of the top level of
+`Downloads` and `Documents`.
+
+## Create an archive
+
+Create the destination parent first, then archive a source directory:
+
+```bash
+mkdir -p ./archives
+labrat archive \
+  --source ./my_project \
+  --destination ./archives \
+  --name my_project
+```
+
+Labrat creates a timestamped directory such as
+`my_project_archive_20260905_143000` and a ZIP archive beside it. The original
+source remains in place.
+
+Archive names include local time down to the second. Do not launch concurrent
+archives with the same project name and destination.
+
+## Organize scientific files
+
+```bash
+labrat organize --science
+```
+
+This command moves recognized scientific files from the top level of
+`~/Downloads` and `~/Documents` into `~/Documents/Research_Data`. Recognized
+formats include common sequence, alignment, variant, annotation, phylogenetic,
+structure, astronomy, HDF5, and NetCDF extensions.
+
+Choose a different destination with:
+
+```bash
+labrat organize --science --science-dir ./research-data
+```
+
+`--science-dir` changes the destination only. It does not change the source
+directories that Labrat scans.
+
+## Organize by filename or file category
+
+```bash
+labrat organize --keyword project_alpha
+labrat organize --archives
+labrat organize --pictures --videos
+```
+
+Keyword matching is case-sensitive and moves matching files into
+`~/Documents/Organized_Files`. Archive files are grouped by compression type
+under `~/Documents/Archive`.
+
+The current media implementation uses one shared organizer. Supplying either
+`--pictures` or `--videos` processes both recognized picture and video files.
+
+## Review before running
+
+::: {.callout-warning}
+The organize commands move files immediately and do not provide a dry-run
+mode. Inspect the top level of `~/Downloads` and `~/Documents` first.
+:::
+
+If a destination already contains a file with the same name, Labrat compares
+modification times. It deletes the older copy and keeps the newer copy. Equal
+timestamps cause the source file to be deleted. Review duplicate filenames
+before organizing irreplaceable data.
+
+Avoid `labrat organize --all` until its legacy keyword-specific behavior has
+been reviewed. Prefer the narrowest explicit option for the files you intend to
+move.
+
+File operations are recorded under `~/.labrat/`.
