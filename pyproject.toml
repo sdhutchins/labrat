@@ -38,8 +38,14 @@ dependencies = [
     "rich>=14.1.0",
 ]
 
+[project.optional-dependencies]
+docs = [
+    "great-docs>=0.17,<0.18",
+]
+
 [project.urls]
 Homepage = "https://github.com/sdhutchins/labrat"
+Documentation = "https://sdhutchins.github.io/labrat/"
 Releases = "https://github.com/sdhutchins/labrat/releases"
 Issues = "https://github.com/sdhutchins/labrat/issues"
 
