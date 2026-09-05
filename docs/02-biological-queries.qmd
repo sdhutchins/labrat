@@ -1,0 +1,146 @@
+---
+title: "Biological Queries"
+guide-section: "Guides"
+---
+
+Labrat queries MyGene, MyVariant, and PubTator 3 while retaining provider and
+retrieval provenance.
+
+The default terminal view is intended for reading. Use JSON when a response
+will be saved, parsed, or cited in an analysis.
+
+## Genes
+
+```bash
+labrat query gene BMPR2
+labrat query gene BMPR2 --all-matches
+```
+
+Gene queries default to human records. Use `--species` to select another
+MyGene-supported species.
+
+The default view displays the result with the highest MyGene `_score` and notes
+whether additional matches were returned. The score ranks records within the
+current search.
+
+The top panel can include the gene symbol, name, Entrez identifier, Ensembl
+identifier, UniProt accession, RefSeq accessions, taxonomy, and summary when
+MyGene reports them. Increase `--limit` to retrieve more candidates, then add
+`--all-matches` to display the lower-ranked records:
+
+```bash
+labrat query gene ALK --limit 10 --all-matches
+```
+
+Use `--species` when a symbol is being resolved outside humans:
+
+```bash
+labrat query gene Bmpr2 --species mouse
+```
+
+## Variants
+
+```bash
+labrat query variant rs429358
+```
+
+The command accepts an rsID or an hg19 genomic HGVS identifier. An rsID is sent
+as a fielded dbSNP query to reduce unrelated fuzzy matches. Each returned allele
+gets its own panel because one identifier can map to multiple alleles or
+records.
+
+The readable view summarizes dbSNP identifiers, genes, ClinVar labels, CADD
+PHRED scores, and overall gnomAD exome and genome allele frequencies when those
+sources report them.
+
+MyVariant's primary genomic identifiers use the hg19 assembly. Responses may
+include mapped coordinates for other assemblies when a source provides them.
+ClinVar labels are condition-specific and should be interpreted with their
+associated records.
+
+## Literature
+
+Search PubTator 3 with free text:
+
+```bash
+labrat query literature "BMPR2 pulmonary arterial hypertension"
+```
+
+Resolve normalized biological concepts before searching:
+
+```bash
+labrat query literature --gene BMPR2 \
+  --disease "pulmonary arterial hypertension"
+```
+
+Require a text-mined relation between exactly two concepts:
+
+```bash
+labrat query literature --gene BMPR2 \
+  --disease "pulmonary arterial hypertension" \
+  --relation associate
+```
+
+PubTator relations are text-mined associations. They should be interpreted with
+the cited publications.
+
+Structured options can resolve genes, diseases, variants, and chemicals:
+
+```bash
+labrat query literature --variant rs429358 --disease "Alzheimer disease"
+labrat query literature --chemical sildenafil --disease \
+  "pulmonary arterial hypertension"
+```
+
+Use either free text or structured options in one command. A relation query
+requires exactly two structured entities. Labrat also requires an exact unique
+autocomplete name before constructing a semantic query. An ambiguous concept
+returns candidate names instead of silently selecting the first match.
+
+`--page` selects a PubTator result page. `--limit` controls how many records are
+shown in the terminal, but Labrat retains the complete returned page in JSON.
+
+## Machine-readable output
+
+All query commands accept `--format json`. JSON output retains the complete
+provider response and query provenance for downstream analysis.
+
+```bash
+labrat query gene BMPR2 --format json > bmpr2-mygene.json
+labrat query variant rs429358 --format json > rs429358-myvariant.json
+```
+
+Each serialized `QueryResult` contains:
+
+- `kind`, the Labrat query type;
+- `query`, the provider query or normalized semantic query;
+- `provider`, the external resource name;
+- `retrieved_at`, an ISO 8601 UTC timestamp;
+- `metadata`, including available build and source information;
+- `data`, the complete provider response retained by Labrat.
+
+## Python API
+
+The Python API returns the same immutable `QueryResult` model used by the CLI:
+
+```python
+from labrat.query import query_gene
+
+result = query_gene("BMPR2", species="human", limit=5)
+highest_provider_hit = result.data["hits"][0]
+
+print(result.provider)
+print(result.metadata["build_version"])
+print(highest_provider_hit["symbol"])
+```
+
+MyGene normally returns hits in provider rank order. The Rich terminal renderer
+explicitly sorts them by `_score` before choosing the displayed top match. Code
+that selects a record should inspect identifiers and taxonomy rather than rely
+on list position alone.
+
+## Expected failures
+
+Labrat converts provider errors, timeouts, unexpected response shapes, and
+ambiguous PubTator concepts into readable query errors. Empty results are valid
+responses and appear as an empty-result panel rather than a fabricated match.
