@@ -19,6 +19,23 @@
       show_root_heading: true
       show_source: false
 
+## Biological Queries
+
+::: labrat.query.gene
+    options:
+      show_root_heading: true
+      show_source: false
+
+::: labrat.query.variant
+    options:
+      show_root_heading: true
+      show_source: false
+
+::: labrat.query.literature
+    options:
+      show_root_heading: true
+      show_source: false
+
 ## Project Management
 
 ::: labrat.project.projectmanager

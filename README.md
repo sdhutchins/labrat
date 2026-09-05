@@ -14,6 +14,7 @@ A basic science lab framework aimed at reproducibility and lab management. This 
 - Automatically organize scientific data files (FASTQ, FASTA, SAM, BAM, VCF, etc.) and others files like pictures, videos, and archives
 - Archive projects and directories with timestamped backups
 - Convert DNA sequences to amino acids and analyze genetic data
+- Query gene, variant, and biomedical literature resources with provenance
 - Full-featured CLI for all major operations
 
 ## Install
@@ -59,6 +60,22 @@ Organize scientific data files:
 ```bash
 labrat organize --science
 ```
+
+Query genes through MyGene, variants through MyVariant, and literature through
+PubTator 3:
+
+```bash
+labrat query gene BMPR2
+labrat query gene BMPR2 --all-matches
+labrat query variant rs429358
+labrat query literature "BMPR2 pulmonary arterial hypertension"
+labrat query literature --gene BMPR2 \
+  --disease "pulmonary arterial hypertension"
+```
+
+Add `--format json` to retain the complete provider response and query
+provenance for downstream analysis. The default output uses terminal-aware
+Rich tables and panels that remain readable when output is redirected.
 
 ### Python API
 
