@@ -33,6 +33,8 @@ dependencies = [
     "exmemo>=0.1.0",
     "click>=6.7",
     "jinja2-time>=0.2.0",
+    "mygene>=3.2.2",
+    "myvariant>=1.0.0",
 ]
 
 [project.urls]
