@@ -4,10 +4,13 @@ parser: google
 # Static analysis resolves submodule exports without importing package state.
 dynamic: false
 repo: https://github.com/sdhutchins/labrat
-site_url: https://sdhutchins.github.io/labrat/
+site_url: https://www.shauritahutchins.com/labrat/
 github_style: widget
 accent_color: "#673148"
 navbar_color: "#673148"
+seo:
+  canonical:
+    base_url: https://www.shauritahutchins.com/labrat/
 
 # Keep authored guides in the repository's established documentation directory.
 user_guide: docs

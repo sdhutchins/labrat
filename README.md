@@ -108,7 +108,7 @@ projects = manager.list_projects()
 ## Documentation
 
 The complete documentation is available at
-[sdhutchins.github.io/labrat](https://sdhutchins.github.io/labrat/).
+[www.shauritahutchins.com/labrat](https://www.shauritahutchins.com/labrat/).
 
 Great Docs requires Python 3.11 or later and Quarto. Build the documentation
 locally with:
