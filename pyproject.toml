@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pylabrat"
-version = "0.1"
+version = "0.2.0"
 description = """
 A Python framework designed to improve reproducibility, simplify laboratory \
 management, and support common biomedical research tasks."""
