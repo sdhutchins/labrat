@@ -1,0 +1,46 @@
+---
+title: "User Guide"
+---
+
+Labrat provides command-line and Python tools designed to improve
+reproducibility, simplify laboratory management, and support common biomedical
+research tasks.
+
+## Start here
+
+- [Install Labrat](01-installation.qmd) and verify the command-line interface.
+- [Query biological databases/APIs](02-biological-queries.qmd) such as MyGene,
+  MyVariant, and PubTator 3.
+- [Manage projects](03-project-management.qmd) from a reusable template and
+  keep a local project list.
+- [Organize files and folders](04-files-and-archives.qmd).
+- [Inspect and translate sequences](05-sequence-utilities.qmd) from Python.
+
+## Choose an interface
+
+Use the command-line interface for interactive work and shell pipelines:
+
+```bash
+labrat --help
+labrat query --help
+```
+
+Use the Python API when a result needs to remain in memory, become part of an
+analysis, or feed another reproducible step:
+
+```python
+from labrat.query import query_gene
+
+result = query_gene("BMPR2")
+print(result.provider)
+print(result.retrieved_at)
+```
+
+## Query Limitations
+
+Query results depend on live external services and their current database
+builds. Labrat records retrieval time and provider metadata. Save JSON output
+to preserve the returned content used in an analysis or report.
+
+File organization commands modify local files. Review the relevant guide and
+the files in `Downloads` and `Documents` before running them.

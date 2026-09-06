@@ -4,10 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pylabrat"
-version = "0.1"
-description = "A package of helpful guis and functions to improve reproducibility for genetics/psychiatry related labs."
+version = "0.2.0"
+description = """
+A Python framework designed to improve reproducibility, simplify laboratory \
+management, and support common biomedical research tasks."""
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [
@@ -15,15 +17,16 @@ authors = [
 ]
 keywords = ["science", "lab", "genetics", "math", "filemanagement"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
     "Operating System :: POSIX :: Linux",
     "Operating System :: Unix",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 dependencies = [
@@ -32,20 +35,19 @@ dependencies = [
     "exmemo>=0.1.0",
     "click>=6.7",
     "jinja2-time>=0.2.0",
+    "mygene>=3.2.2",
+    "myvariant>=1.0.0",
+    "rich>=14.1.0",
 ]
 
 [project.optional-dependencies]
 docs = [
-    "mkdocs>=1.5.0",
-    "mkdocs-material>=9.0.0",
-    "mkdocs-click>=0.8.0",
-    "mkdocstrings[python]>=0.23.0",
-    "pymdown-extensions>=10.0.0",
+    "great-docs>=0.17,<0.18",
 ]
 
 [project.urls]
 Homepage = "https://github.com/sdhutchins/labrat"
-Documentation = "https://labrat.readthedocs.io/en/latest/"
+Documentation = "https://www.shauritahutchins.com/labrat/"
 Releases = "https://github.com/sdhutchins/labrat/releases"
 Issues = "https://github.com/sdhutchins/labrat/issues"
 

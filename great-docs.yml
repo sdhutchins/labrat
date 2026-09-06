@@ -1,0 +1,110 @@
+module: labrat
+display_name: labrat
+parser: google
+# Static analysis resolves submodule exports without importing package state.
+dynamic: false
+repo: https://github.com/sdhutchins/labrat
+site_url: https://www.shauritahutchins.com/labrat/
+github_style: widget
+accent_color: "#673148"
+navbar_color: "#673148"
+logo:
+  light: assets/labrat-logo.png
+  dark: assets/labrat-logo.png
+  alt: Labrat
+  show_title: true
+favicon: assets/favicon.png
+
+hero:
+  enabled: true
+  logo: assets/labrat-logo.png
+  logo_height: 175px
+  name: labrat
+  tagline: ""
+  badges: auto
+
+seo:
+  canonical:
+    base_url: https://www.shauritahutchins.com/labrat/
+
+# Keep authored guides in the repository's established documentation directory.
+user_guide: docs
+
+source:
+  branch: main
+
+authors:
+  - name: Shaurita Hutchins
+    role: Author
+    email: shaurita.d.hutchins@gmail.com
+    github: sdhutchins
+
+cli:
+  enabled: true
+  module: labrat.cli
+  name: main
+
+reference:
+  - title: Query models and clients
+    desc: Shared results and clients for external biological resources.
+    contents:
+      - query.QueryResult
+      - query.QueryError
+      - query.PubTatorClient
+
+  - title: Biological queries
+    desc: Gene, variant, and biomedical literature queries.
+    contents:
+      - query.query_gene
+      - query.query_variant
+      - query.query_literature
+
+  - title: Project and file management
+    desc: Classes for projects, archives, and scientific files.
+    contents:
+      - project.ProjectManager
+      - filemanager.Archiver
+      - filemanager.FileOrganizer
+
+  - title: ProjectManager methods
+    contents:
+      - project.ProjectManager.new_project
+      - project.ProjectManager.list_projects
+      - project.ProjectManager.update_project
+      - project.ProjectManager.list_project_files
+      - project.ProjectManager.archive_project
+      - project.ProjectManager.add_template
+      - project.ProjectManager.delete_project
+
+  - title: FileOrganizer methods
+    contents:
+      - filemanager.FileOrganizer.move_file
+      - filemanager.FileOrganizer.organize_by_year
+      - filemanager.FileOrganizer.organize_documents
+      - filemanager.FileOrganizer.organize_archives
+      - filemanager.FileOrganizer.organize_files
+      - filemanager.FileOrganizer.move_specific_files
+      - filemanager.FileOrganizer.organize_science_files
+      - filemanager.FileOrganizer.organize_all
+
+  - title: Genetics
+    desc: DNA and protein sequence utilities.
+    contents:
+      - genetics.atgc_content
+      - genetics.complementary_dna
+      - genetics.dna2aminoacid
+
+  - title: Laboratory math
+    desc: Common concentration and optical calculations.
+    contents:
+      - math.calculate_molarity
+      - math.dilute_stock
+      - math.mass_recorder
+      - math.refractive_index_prism
+      - math.transmittance_to_absorbance
+
+site:
+  css: docs/labrat.css
+  toc: true
+  toc-depth: 2
+  toc-title: On this page

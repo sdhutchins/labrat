@@ -1,21 +1,30 @@
+<div align="center">
+  <img
+    src="https://raw.githubusercontent.com/sdhutchins/labrat/main/assets/labrat-logo.png"
+    alt="Labrat logo"
+    width="175"
+  >
+
+[![Test Package Build](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml/badge.svg?branch=main)](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml)
+[![codecov](https://codecov.io/gh/sdhutchins/labrat/graph/badge.svg?token=LqA1Lqf0uu)](https://codecov.io/gh/sdhutchins/labrat)
+[![PyPI - Version](https://img.shields.io/pypi/v/pylabrat)](https://pypi.org/project/pylabrat/)
+[![DOI](https://zenodo.org/badge/99277244.svg)](https://doi.org/10.5281/zenodo.17705600)
+</div>
+
 # labrat
 
-[![Build Status](https://app.travis-ci.com/sdhutchins/labrat.svg?token=xfnbNTQhjNbir5xACn8R&branch=master)](https://app.travis-ci.com/sdhutchins/labrat)
-[![codecov](https://codecov.io/gh/sdhutchins/labrat/graph/badge.svg?token=LqA1Lqf0uu)](https://codecov.io/gh/sdhutchins/labrat)
-![PyPI - Version](https://img.shields.io/pypi/v/pylabrat)
-[![DOI](https://zenodo.org/badge/99277244.svg)](https://doi.org/10.5281/zenodo.17705600)
-[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
-
-A basic science lab framework aimed at reproducibility and lab management. This package is in the very early stages of development.
+Labrat is a Python framework designed to improve reproducibility, simplify
+laboratory management, and support common biomedical research tasks.
 
 ## Features
 
-- Create, list, and track/manage computational biology projects with structured templates
+- Create, list, and track computational biology projects from reusable templates
 - Calculate solution dilutions, molarity, transmittance/absorbance conversions, and more
-- Automatically organize scientific data files (FASTQ, FASTA, SAM, BAM, VCF, etc.) and others files like pictures, videos, and archives
+- Organize scientific data, images, videos, and archives by file type
 - Archive projects and directories with timestamped backups
-- Convert DNA sequences to amino acids and analyze genetic data
-- Full-featured CLI for all major operations
+- Count canonical nucleotides, create DNA complements, and translate FASTA sequences
+- Query gene, variant, and biomedical literature resources with provenance
+- Use the same tools from the command line or Python
 
 ## Install
 
@@ -61,6 +70,22 @@ Organize scientific data files:
 labrat organize --science
 ```
 
+Query genes through MyGene, variants through MyVariant, and literature through
+PubTator 3:
+
+```bash
+labrat query gene BMPR2
+labrat query gene BMPR2 --all-matches
+labrat query variant rs429358
+labrat query literature "BMPR2 pulmonary arterial hypertension"
+labrat query literature --gene BMPR2 \
+  --disease "pulmonary arterial hypertension"
+```
+
+Add `--format json` to retain the complete provider response and query
+provenance for downstream analysis. The default output uses terminal-aware
+Rich tables and panels that remain readable when output is redirected.
+
 ### Python API
 
 Calculate solution dilutions:
@@ -87,6 +112,21 @@ manager.new_project(
 # List all projects
 projects = manager.list_projects()
 ```
+
+## Documentation
+
+The complete documentation is available at
+[www.shauritahutchins.com/labrat](https://www.shauritahutchins.com/labrat/).
+
+Great Docs requires Python 3.11 or later and Quarto. Build the documentation
+locally with:
+
+```bash
+pip install -e ".[docs]"
+great-docs build
+```
+
+The generated site is written to `great-docs/_site/` and is not committed.
 
 ## Tests
 
@@ -122,7 +162,7 @@ python -m unittest tests.test_file_organizer
 python -m unittest tests.test_project_manager
 ```
 
-## ToDo
+## Roadmap
 
 - [ ] Add a lab inventory app
 - [ ] Add project report template
@@ -137,8 +177,8 @@ Shaurita Hutchins · [@sdhutchins](https://github.com/sdhutchins)
 
 If you would like to contribute to this package, install the package in
 development mode, and check out our [contributing
-guidelines](https://github.com/sdhutchins/labrat/blob/master/CONTRIBUTING.md).
+guidelines](https://github.com/sdhutchins/labrat/blob/main/CONTRIBUTING.md).
 
 ## License
 
-[MIT](https://github.com/sdhutchins/labrat/blob/master/LICENSE)
+[MIT](https://github.com/sdhutchins/labrat/blob/main/LICENSE)

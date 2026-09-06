@@ -1,0 +1,129 @@
+:root {
+    --labrat-plum: #673148;
+    --labrat-rose: #7A3E58;
+    --labrat-soft-rose: #B78899;
+    --labrat-light-rose: #D9B7C6;
+    --bs-link-color: var(--labrat-plum);
+    --bs-link-color-rgb: 103, 49, 72;
+    --bs-link-hover-color: var(--labrat-rose);
+    --bs-link-hover-color-rgb: 122, 62, 88;
+}
+
+/* Replace inherited green syntax highlighting with the Labrat palette. */
+code span.at,
+code span.ch,
+code span.ss,
+code span.st,
+code span.vs {
+    color: var(--labrat-rose);
+}
+
+/* Keep navigation and generated labels within the same visual system. */
+#quarto-margin-sidebar nav ul li a.active,
+#quarto-sidebar a.sidebar-item-text.sidebar-link.active {
+    color: var(--labrat-plum);
+}
+
+#quarto-sidebar a.sidebar-item-text.sidebar-link.active {
+    text-decoration-color: var(--labrat-soft-rose);
+}
+
+.content span.doc-label-property::after,
+.gd-code-copy.gd-code-copied {
+    color: var(--labrat-plum);
+    border-color: var(--labrat-plum);
+}
+
+.content span.doc-label-property::after {
+    background-color: color-mix(
+        in srgb,
+        var(--labrat-plum) 5%,
+        transparent
+    );
+}
+
+/* Use Labrat's palette for CLI group labels and the selected command. */
+body.doc-cli-reference {
+    --labrat-cli-group: var(--labrat-plum);
+    --labrat-cli-active: var(--labrat-rose);
+}
+
+/* Keep generated CLI type badges in the same palette as their sidebar groups. */
+body.doc-cli-reference .content span.doc-label-cli::after,
+body.doc-cli-reference .content span.doc-label-cli-group::after {
+    color: var(--labrat-cli-group);
+    background-color: color-mix(
+        in srgb,
+        var(--labrat-cli-group) 5%,
+        transparent
+    );
+    border-color: var(--labrat-cli-group);
+}
+
+/* Scope the group treatment so other generated reference labels stay distinct. */
+body.doc-cli-reference #quarto-sidebar .sidebar-item-section
+    > .sidebar-item-container
+    > .sidebar-item-text
+    .menu-text {
+    color: var(--labrat-cli-group);
+    background-color: color-mix(
+        in srgb,
+        var(--labrat-cli-group) 10%,
+        transparent
+    );
+    border-color: var(--labrat-cli-group);
+}
+
+/* The underline preserves an additional active-state cue beyond color alone. */
+body.doc-cli-reference
+    #quarto-sidebar
+    a.sidebar-item-text.sidebar-link.active {
+    color: var(--labrat-cli-active);
+    text-decoration-color: var(--labrat-cli-active);
+}
+
+/* Use lighter accents where the dark background requires more contrast. */
+html.quarto-dark:root,
+html[data-bs-theme="dark"]:root {
+    --gd-accent: var(--labrat-soft-rose);
+}
+
+body.quarto-dark {
+    --gd-active-link: var(--labrat-light-rose);
+    --gd-link-color: var(--labrat-light-rose);
+    --gd-syn-string: var(--labrat-light-rose);
+    --bs-link-color: var(--labrat-light-rose);
+    --bs-link-color-rgb: 217, 183, 198;
+}
+
+body.quarto-dark p a:hover,
+body.quarto-dark li a:hover,
+body.quarto-dark .parameter-default,
+body.quarto-dark .gd-code-copy.gd-code-copied {
+    color: var(--labrat-soft-rose);
+}
+/* Keep the compact hero aligned after Great Docs extracts the README badges. */
+.gd-hero {
+    padding: 1rem 1rem 0.5rem;
+}
+
+.gd-hero-logo {
+    margin-bottom: 0.75rem;
+}
+
+/* Great Docs uses the name to remove the repeated README heading. */
+.gd-hero-name {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .gd-hero-badges {
+        max-width: 320px;
+        margin-inline: auto;
+    }
+}
+
+/* Keep the configured logo for favicon generation while hiding it in the navbar. */
+.navbar-logo {
+    display: none;
+}
