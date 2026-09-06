@@ -1,5 +1,9 @@
 <div align="center">
-  <img src="assets/labrat-logo.png" alt="Labrat logo" width="175">
+  <img
+    src="https://raw.githubusercontent.com/sdhutchins/labrat/main/assets/labrat-logo.png"
+    alt="Labrat logo"
+    width="175"
+  >
 
 [![Test Package Build](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml/badge.svg?branch=main)](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml)
 [![codecov](https://codecov.io/gh/sdhutchins/labrat/graph/badge.svg?token=LqA1Lqf0uu)](https://codecov.io/gh/sdhutchins/labrat)
