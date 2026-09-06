@@ -1,12 +1,16 @@
 """Tests for query providers and provenance-preserving results."""
 
-from unittest.mock import MagicMock
+from collections.abc import Callable
+from datetime import datetime
+from unittest.mock import MagicMock, patch
+from urllib.error import URLError
 
 import pytest
 
 from labrat.query import PubTatorClient, QueryError
 from labrat.query.gene import query_gene
 from labrat.query.literature import query_literature
+from labrat.query.models import QueryResult, retrieval_timestamp
 from labrat.query.variant import query_variant
 
 
@@ -166,3 +170,200 @@ def test_query_literature_rejects_mixed_query_modes() -> None:
             entities={"gene": "BMPR2"},
             client=client,
         )
+
+
+@pytest.mark.parametrize(
+    ("query_function", "query", "error_message"),
+    [
+        (query_gene, "BMPR2", "MyGene query failed"),
+        (query_variant, "rs429358", "MyVariant query failed"),
+    ],
+)
+def test_query_providers_translate_client_errors(
+    query_function: Callable[..., QueryResult],
+    query: str,
+    error_message: str,
+) -> None:
+    """Provider failures should become consistent errors for CLI callers."""
+    client = MagicMock()
+    client.query.side_effect = RuntimeError("provider unavailable")
+
+    with pytest.raises(QueryError, match=error_message):
+        query_function(query, client=client)
+
+
+@pytest.mark.parametrize(
+    ("query_function", "query", "error_message"),
+    [
+        (query_gene, "BMPR2", "MyGene returned an unexpected response"),
+        (query_variant, "rs429358", "MyVariant returned an unexpected response"),
+    ],
+)
+def test_query_providers_reject_malformed_responses(
+    query_function: Callable[..., QueryResult],
+    query: str,
+    error_message: str,
+) -> None:
+    """Non-object responses should fail before result provenance is assembled."""
+    client = MagicMock()
+    client.query.return_value = []
+    client.metadata.return_value = {}
+
+    with pytest.raises(QueryError, match=error_message):
+        query_function(query, client=client)
+
+
+def test_query_variant_preserves_literal_variant_query() -> None:
+    """HGVS-style variants should pass through without rsID field rewriting."""
+    client = MagicMock()
+    client.query.return_value = {"total": 0, "hits": []}
+    client.metadata.return_value = {"src": {}}
+
+    result = query_variant("chr19:g.44908684T>C", client=client)
+
+    assert result.metadata["provider_query"] == "chr19:g.44908684T>C"
+    client.query.assert_called_once_with(
+        "chr19:g.44908684T>C",
+        fields=(
+            "_id,dbsnp.rsid,clinvar,cadd.phred,gnomad_exome.af,"
+            "gnomad_genome.af"
+        ),
+        size=5,
+    )
+
+
+def test_pubtator_client_builds_request_and_respects_rate_limit() -> None:
+    """Consecutive PubTator requests should retain parameters and throttle."""
+    client = PubTatorClient("https://example.test/")
+    client._last_request_at = 10.0
+    response_context = MagicMock()
+    response_context.__enter__.return_value = MagicMock()
+
+    with (
+        patch(
+            "labrat.query.literature.time.monotonic",
+            side_effect=[10.1, 10.2],
+        ),
+        patch("labrat.query.literature.time.sleep") as sleep,
+        patch(
+            "labrat.query.literature.urlopen",
+            return_value=response_context,
+        ) as urlopen,
+        patch(
+            "labrat.query.literature.json.load",
+            return_value={"results": []},
+        ),
+    ):
+        result = client.search("BMPR2 PAH", page=2)
+
+    request = urlopen.call_args.args[0]
+    assert result == {"results": []}
+    assert request.full_url == (
+        "https://example.test/search/?text=BMPR2+PAH&page=2"
+    )
+    assert request.get_header("User-agent") == "pylabrat literature query"
+    sleep.assert_called_once_with(pytest.approx((1 / 3) - 0.1))
+
+
+def test_pubtator_client_translates_transport_errors() -> None:
+    """Transport errors should retain a stable package-level exception type."""
+    client = PubTatorClient()
+
+    with (
+        patch("labrat.query.literature.time.monotonic", return_value=10.0),
+        patch(
+            "labrat.query.literature.urlopen",
+            side_effect=URLError("offline"),
+        ),
+        pytest.raises(QueryError, match="PubTator 3 request failed"),
+    ):
+        client.search("BMPR2")
+
+
+def test_pubtator_client_rejects_invalid_response_shapes() -> None:
+    """Endpoint-specific response types should be validated consistently."""
+    client = PubTatorClient()
+    client._get_json = MagicMock(side_effect=[{}, []])
+
+    with pytest.raises(QueryError, match="invalid autocomplete data"):
+        client.autocomplete("BMPR2", "gene")
+
+    with pytest.raises(QueryError, match="invalid search data"):
+        client.search("BMPR2")
+
+
+@pytest.mark.parametrize(
+    ("arguments", "error_message"),
+    [
+        ({}, "Provide search text"),
+        (
+            {"search_text": "BMPR2", "relation": "associate"},
+            "requires structured entity options",
+        ),
+    ],
+)
+def test_query_literature_validates_input_modes(
+    arguments: dict[str, str],
+    error_message: str,
+) -> None:
+    """Incomplete query modes should fail before contacting PubTator."""
+    client = MagicMock(spec=PubTatorClient)
+
+    with pytest.raises(QueryError, match=error_message):
+        query_literature(client=client, **arguments)
+
+    client.search.assert_not_called()
+
+
+def test_query_literature_rejects_unresolved_entity() -> None:
+    """An entity with no PubTator matches should retain its input label."""
+    client = MagicMock(spec=PubTatorClient)
+    client.autocomplete.return_value = []
+
+    with pytest.raises(QueryError, match="could not resolve gene 'BMPR2'"):
+        query_literature(entities={"gene": "BMPR2"}, client=client)
+
+
+def test_query_literature_requires_two_relation_entities() -> None:
+    """Relation syntax should require two normalized biological endpoints."""
+    client = MagicMock(spec=PubTatorClient)
+    client.autocomplete.return_value = [{"_id": "@GENE_BMPR2", "name": "BMPR2"}]
+
+    with pytest.raises(QueryError, match="exactly two entities"):
+        query_literature(
+            entities={"gene": "BMPR2"},
+            relation="associate",
+            client=client,
+        )
+
+
+def test_query_literature_rejects_invalid_results() -> None:
+    """Literature results should remain a list before presentation limits apply."""
+    client = MagicMock(spec=PubTatorClient)
+    client.search.return_value = {"results": {"pmid": 34023242}}
+
+    with pytest.raises(QueryError, match="invalid literature results"):
+        query_literature(search_text="BMPR2", client=client)
+
+
+def test_query_result_serializes_with_utc_timestamp() -> None:
+    """Query results should provide JSON-ready provenance with a UTC offset."""
+    retrieved_at = retrieval_timestamp()
+    result = QueryResult(
+        kind="gene",
+        query="BMPR2",
+        provider="mygene",
+        retrieved_at=retrieved_at,
+        metadata={"species": "human"},
+        data={"hits": []},
+    )
+
+    assert result.to_dict() == {
+        "kind": "gene",
+        "query": "BMPR2",
+        "provider": "mygene",
+        "retrieved_at": retrieved_at,
+        "metadata": {"species": "human"},
+        "data": {"hits": []},
+    }
+    assert datetime.fromisoformat(retrieved_at).utcoffset().total_seconds() == 0

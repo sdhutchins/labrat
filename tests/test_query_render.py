@@ -2,6 +2,7 @@
 
 from io import StringIO
 
+import pytest
 from rich.console import Console
 
 from labrat.query.models import QueryResult
@@ -157,3 +158,32 @@ def test_render_literature_citation() -> None:
     assert "Tatius B, Wasityastuti W" in output
     assert "PMID: 34023242" in output
     assert "10.1016/j.resinv.2021.03.011" in output
+
+
+@pytest.mark.parametrize(
+    ("kind", "data", "expected_message"),
+    [
+        ("gene", {"hits": []}, "No matching genes found."),
+        ("variant", {"hits": []}, "No matching variants found."),
+        ("literature", {"results": []}, "No matching publications found."),
+    ],
+)
+def test_render_empty_query_results(
+    kind: str,
+    data: dict[str, list[object]],
+    expected_message: str,
+) -> None:
+    """Empty provider responses should produce clear terminal messages."""
+    result = QueryResult(
+        kind=kind,
+        query="missing record",
+        provider="test provider",
+        retrieved_at="2026-09-05T12:00:00+00:00",
+        metadata={},
+        data=data,
+    )
+
+    output = _render(result)
+
+    assert expected_message in output
+    assert "Source: test provider" in output
