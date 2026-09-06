@@ -102,3 +102,12 @@ body.quarto-dark .parameter-default,
 body.quarto-dark .gd-code-copy.gd-code-copied {
     color: var(--labrat-soft-rose);
 }
+/* The documentation hero already displays the README logo. */
+.readme-logo {
+  display: none;
+}
+
+/* Keep the configured logo for favicon generation while hiding it in the navbar. */
+.navbar-logo {
+  display: none;
+}

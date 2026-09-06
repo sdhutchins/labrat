@@ -8,6 +8,20 @@ site_url: https://www.shauritahutchins.com/labrat/
 github_style: widget
 accent_color: "#673148"
 navbar_color: "#673148"
+logo:
+  light: assets/labrat-logo.png
+  dark: assets/labrat-logo.png
+  alt: Labrat
+  show_title: true
+favicon: assets/favicon.png
+
+hero:
+  enabled: true
+  logo: assets/labrat-logo.png
+  logo_height: 175px
+  name: false
+  tagline: ""
+
 seo:
   canonical:
     base_url: https://www.shauritahutchins.com/labrat/

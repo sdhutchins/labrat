@@ -1,3 +1,7 @@
+<p class="readme-logo" align="center">
+  <img src="assets/labrat-logo.png" alt="Labrat logo" width="175">
+</p>
+
 # labrat
 
 [![Test Package Build](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml/badge.svg?branch=main)](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml)
