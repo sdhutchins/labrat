@@ -102,12 +102,28 @@ body.quarto-dark .parameter-default,
 body.quarto-dark .gd-code-copy.gd-code-copied {
     color: var(--labrat-soft-rose);
 }
-/* The documentation hero already displays the README logo. */
-.readme-logo {
-  display: none;
+/* Keep the compact hero aligned after Great Docs extracts the README badges. */
+.gd-hero {
+    padding: 1rem 1rem 0.5rem;
+}
+
+.gd-hero-logo {
+    margin-bottom: 0.75rem;
+}
+
+/* Great Docs uses the name to remove the repeated README heading. */
+.gd-hero-name {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .gd-hero-badges {
+        max-width: 320px;
+        margin-inline: auto;
+    }
 }
 
 /* Keep the configured logo for favicon generation while hiding it in the navbar. */
 .navbar-logo {
-  display: none;
+    display: none;
 }

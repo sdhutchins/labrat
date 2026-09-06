@@ -1,13 +1,13 @@
-<p class="readme-logo" align="center">
+<div align="center">
   <img src="assets/labrat-logo.png" alt="Labrat logo" width="175">
-</p>
-
-# labrat
 
 [![Test Package Build](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml/badge.svg?branch=main)](https://github.com/sdhutchins/labrat/actions/workflows/test-build.yml)
 [![codecov](https://codecov.io/gh/sdhutchins/labrat/graph/badge.svg?token=LqA1Lqf0uu)](https://codecov.io/gh/sdhutchins/labrat)
-![PyPI - Version](https://img.shields.io/pypi/v/pylabrat)
+[![PyPI - Version](https://img.shields.io/pypi/v/pylabrat)](https://pypi.org/project/pylabrat/)
 [![DOI](https://zenodo.org/badge/99277244.svg)](https://doi.org/10.5281/zenodo.17705600)
+</div>
+
+# labrat
 
 Labrat is a Python framework designed to improve reproducibility, simplify
 laboratory management, and support common biomedical research tasks.

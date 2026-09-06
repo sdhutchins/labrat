@@ -19,8 +19,9 @@ hero:
   enabled: true
   logo: assets/labrat-logo.png
   logo_height: 175px
-  name: false
+  name: labrat
   tagline: ""
+  badges: auto
 
 seo:
   canonical:
