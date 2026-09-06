@@ -1,7 +1,51 @@
+:root {
+    --labrat-plum: #673148;
+    --labrat-rose: #7A3E58;
+    --labrat-soft-rose: #B78899;
+    --labrat-light-rose: #D9B7C6;
+    --bs-link-color: var(--labrat-plum);
+    --bs-link-color-rgb: 103, 49, 72;
+    --bs-link-hover-color: var(--labrat-rose);
+    --bs-link-hover-color-rgb: 122, 62, 88;
+}
+
+/* Replace inherited green syntax highlighting with the Labrat palette. */
+code span.at,
+code span.ch,
+code span.ss,
+code span.st,
+code span.vs {
+    color: var(--labrat-rose);
+}
+
+/* Keep navigation and generated labels within the same visual system. */
+#quarto-margin-sidebar nav ul li a.active,
+#quarto-sidebar a.sidebar-item-text.sidebar-link.active {
+    color: var(--labrat-plum);
+}
+
+#quarto-sidebar a.sidebar-item-text.sidebar-link.active {
+    text-decoration-color: var(--labrat-soft-rose);
+}
+
+.content span.doc-label-property::after,
+.gd-code-copy.gd-code-copied {
+    color: var(--labrat-plum);
+    border-color: var(--labrat-plum);
+}
+
+.content span.doc-label-property::after {
+    background-color: color-mix(
+        in srgb,
+        var(--labrat-plum) 5%,
+        transparent
+    );
+}
+
 /* Use Labrat's palette for CLI group labels and the selected command. */
 body.doc-cli-reference {
-    --labrat-cli-group: #673148;
-    --labrat-cli-active: #B78899;
+    --labrat-cli-group: var(--labrat-plum);
+    --labrat-cli-active: var(--labrat-rose);
 }
 
 /* Keep generated CLI type badges in the same palette as their sidebar groups. */
@@ -36,4 +80,25 @@ body.doc-cli-reference
     a.sidebar-item-text.sidebar-link.active {
     color: var(--labrat-cli-active);
     text-decoration-color: var(--labrat-cli-active);
+}
+
+/* Use lighter accents where the dark background requires more contrast. */
+html.quarto-dark:root,
+html[data-bs-theme="dark"]:root {
+    --gd-accent: var(--labrat-soft-rose);
+}
+
+body.quarto-dark {
+    --gd-active-link: var(--labrat-light-rose);
+    --gd-link-color: var(--labrat-light-rose);
+    --gd-syn-string: var(--labrat-light-rose);
+    --bs-link-color: var(--labrat-light-rose);
+    --bs-link-color-rgb: 217, 183, 198;
+}
+
+body.quarto-dark p a:hover,
+body.quarto-dark li a:hover,
+body.quarto-dark .parameter-default,
+body.quarto-dark .gd-code-copy.gd-code-copied {
+    color: var(--labrat-soft-rose);
 }
